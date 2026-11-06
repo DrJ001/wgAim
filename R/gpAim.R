@@ -93,13 +93,19 @@
 #'   \code{Trait} is non-\code{NULL}. Options:
 #'   \describe{
 #'     \item{\code{NULL} (default)}{Mirror the structure on the genetic line
-#'       term in \code{baseModel}'s random formula: \code{corh}/\code{corgh}/
-#'       \code{us} maps to \code{corgh(Trait):vm()}; \code{fa(Trait,k)} maps
-#'       to \code{fa(Trait,k):vm()}; \code{diag} stays as
+#'       term in \code{baseModel}'s random formula: \code{corh},
+#'       \code{corgh}, \code{us} and \code{fa(Trait,k)} each map to the same
+#'       structure on \code{vm()}; \code{diag} stays as
 #'       \code{diag(Trait):vm()} (independent per-environment GEBVs).}
-#'     \item{\code{"corh"} / \code{"corgh"} / \code{"us"}}{Force
-#'       \code{corgh(Trait):vm()}: heterogeneous variances with a common
-#'       genetic correlation across environments.}
+#'     \item{\code{"corh"}}{Force \code{corh(Trait):vm()}: heterogeneous
+#'       variances with a single common genetic correlation.}
+#'     \item{\code{"corgh"} / \code{"us"}}{Force \code{corgh(Trait):vm()} or
+#'       \code{us(Trait):vm()}: fully unstructured genetic covariance (the
+#'       same model in two parameterisations).  With four or more
+#'       environments prefer \code{"us"} (and \code{us(Trait):id} in
+#'       \code{baseModel}): ASReml's \code{corgh} parameterisation frequently
+#'       fails to converge, or stops at a local optimum, where \code{us}
+#'       converges.}
 #'     \item{\code{"fa1"}, \code{"fa2"}, \dots}{Force
 #'       \code{fa(Trait,k):vm()} with \eqn{k} factors. The number must be
 #'       explicit; \code{str = "fa"} alone returns an error.}
@@ -248,6 +254,7 @@ gpAim.asreml <- function(baseModel, genObj, merge.by = NULL,
     # Phase 1: Validation
     # Inline only the shared parts -- gpAim has no method/selection/breakout
     # -------------------------------------------------------------------------
+    baseModel <- .resolveCallFormulae(baseModel)
     if (!baseModel$converge) {
         cat("Warning: Base model has not converged. Updating base model\n")
         baseModel <- update(baseModel)
@@ -345,8 +352,8 @@ gpAim.asreml <- function(baseModel, genObj, merge.by = NULL,
     #   - Handles vm vs mbf path selection (vm when markers > lines, mbf
     #     otherwise, overridden by force = TRUE).
     #   - For MV: the genomic vm term mirrors the variance structure on the
-    #     residual genetic term in the base model (corh -> corgh, fa(k) ->
-    #     fa(k), diag -> diag).  The user controls the structure by specifying
+    #     residual genetic term in the base model (corh/corgh/us/fa(k) ->
+    #     same structure, diag -> diag).  The user controls the structure by specifying
     #     it on the genetic line term in the base model's random formula.
     #     n.fa controls how many factor-analytic steps to fit when the base
     #     model carries an fa() structure.
@@ -361,6 +368,20 @@ gpAim.asreml <- function(baseModel, genObj, merge.by = NULL,
     gpModel <- gm$qtlModel
     cov.env <- gm$cov.env     # NULL for mbf path
     use.vm  <- gm$vm
+
+    # MV: .buildGenomeModel() always fits the genomic term as diag(Trait):
+    # first; upgrade it to the requested / mirrored structure (corh, corgh,
+    # us, fa(k)).  Unlike qtlAim/gwasAim there is no initial LRT gate here --
+    # GP always uses the full genomic model.  No-op when vm.struct is NULL
+    # (univariate, or diag requested/mirrored).
+    if (is.mv && !is.null(gm$vm.struct)) {
+        up      <- .upgradeVmStructure(gpModel, gm$vm.struct, gm$n.fa,
+                                       gm$upgrade.to.fa, Trait, rterms,
+                                       gm$resid.term, gm$gterm, use.vm,
+                                       gm$vmterms, phenoData, ...)
+        gpModel <- up$qtlModel
+        gm$vmterms <- up$vmterms
+    }
     vmterm  <- gm$vmterms[1L] # genomic term label; [2] = residual genetic term
 
     # -------------------------------------------------------------------------
@@ -408,7 +429,8 @@ gpAim.asreml <- function(baseModel, genObj, merge.by = NULL,
             pvdf <- pv$pvals[ord, ]
 
             # Extract Ga (ntrait x ntrait genetic covariance matrix)
-            Ga          <- .extract_Ga_gp(gpModel, sigma2, ntrait, trait.levels)
+            Ga          <- .extract_Ga_gp(gpModel, sigma2, ntrait, trait.levels,
+                                          Trait = Trait)
             var.genetic <- setNames(diag(Ga), trait.levels)
             var.resid   <- setNames(rep(sigma2, ntrait), trait.levels)
 
@@ -447,6 +469,42 @@ gpAim.asreml <- function(baseModel, genObj, merge.by = NULL,
             diag(Gcor) <- 1
             dimnames(Gcor) <- dimnames(Ga)
         }
+    } else if (is.mv) {
+        # Multivariate mbf path: per-trial marker effects q_j, GEBV_ij = M_i q_j.
+        # .mbfEffectRows() matches coefficients by trial level and marker name
+        # (handles diag/corh/corgh/us and fa naming, excludes fa Comp rows).
+        eff.rows <- .mbfEffectRows(rownames(gpModel$coefficients$random),
+                                   Trait, trait.levels, colnames(genoData))
+        nlines   <- nrow(genoData)
+        Ga       <- .extract_Ga_gp(gpModel, sigma2, ntrait, trait.levels,
+                                   Trait = Trait)
+        mean.ss  <- mean(rowSums(genoData^2), na.rm = TRUE)
+        # Per-trial genetic variance of GEBVs: per-marker variance x mean M'M
+        var.genetic <- setNames(diag(Ga) * mean.ss, trait.levels)
+        var.resid   <- setNames(rep(sigma2, ntrait), trait.levels)
+        gebv.list <- lapply(seq_len(ntrait), function(j) {
+            q.j   <- gpModel$coefficients$random[eff.rows[, j], 1L]
+            pev.j <- sigma2 * gpModel$vcoeff$random[eff.rows[, j]]
+            g.j   <- as.numeric(genoData %*% q.j)
+            # Approximate SE from the diagonal PEV of the marker effects
+            se.j  <- sqrt(as.numeric(genoData^2 %*% pev.j))
+            acc.j <- sqrt(pmax(0, 1 - se.j^2 / var.genetic[j]))
+            data.frame(rownames(genoData),
+                       factor(rep(trait.levels[j], nlines), levels = trait.levels),
+                       g.j, se.j, acc.j, stringsAsFactors = FALSE)
+        })
+        gebv <- do.call(rbind, gebv.list)
+        names(gebv) <- c(genetic.term, Trait, "GEBV", "SE", "Accuracy")
+        rownames(gebv) <- NULL
+        # Cullis H2 requires a SED matrix, which is not available on the mbf path
+        gen.H2_named <- setNames(rep(NA_real_, ntrait), trait.levels)
+        gebv$gen.H2  <- NA_real_
+
+        sds        <- sqrt(pmax(diag(Ga), 0))
+        Gcor       <- Ga / outer(sds, sds)
+        Gcor[!is.finite(Gcor)] <- 0
+        diag(Gcor) <- 1
+        dimnames(Gcor) <- dimnames(Ga)
     } else {
         # Univariate mbf path: GEBVs = M %*% q.hat
         mbf.rows <- grep("mbf", rownames(gpModel$coefficients$random))
@@ -567,41 +625,18 @@ gpAim.asreml <- function(baseModel, genObj, merge.by = NULL,
 # is consistent regardless of variance structure (diag / corh / fa).
 # =============================================================================
 #' @keywords internal
-.extract_Ga_gp <- function(gpModel, sigma2, ntrait, trait.levels) {
-    sterms    <- "vm.*covObj|mbf.*ints"
-    gp_names  <- names(gpModel$G.param)
-    mterm     <- gp_names[grep(sterms, gp_names)][1L]
-    vpar_all  <- gpModel$vparameters
-    vpar_nms  <- names(vpar_all)
-    vm_idx    <- grep(sterms, vpar_nms)
-    vpars.raw <- vpar_all[vm_idx]
-    vpar.nms  <- vpar_nms[vm_idx]
-
-    Ga <- if (grepl("diag", mterm)) {
-        diag(pmax(vpars.raw * sigma2, 0), ntrait)
-    } else if (grepl("corh|corgh", mterm)) {
-        is.cor   <- grepl("\\.cor$", vpar.nms)
-        var.pars <- pmax(vpars.raw[!is.cor] * sigma2, 0)
-        cor.pars <- vpars.raw[is.cor]
-        sds      <- sqrt(var.pars)
-        G        <- diag(var.pars)
-        idx <- 0L
-        for (col in seq_len(ntrait - 1L)) {
-            for (row in (col + 1L):ntrait) {
-                idx <- idx + 1L
-                G[row, col] <- G[col, row] <- cor.pars[idx] * sds[row] * sds[col]
-            }
-        }
-        G
-    } else if (grepl("fa", mterm)) {
-        n.fa.fit   <- as.integer(sub(".*,\\s*(\\d+)\\).*", "\\1", mterm))
-        is.loading <- grepl("!fa[0-9]+$", vpar.nms)
-        psi <- pmax(vpars.raw[!is.loading] * sigma2, 0)
-        Lam <- matrix(vpars.raw[is.loading], ncol = n.fa.fit)
-        Lam %*% t(Lam) + diag(as.numeric(psi))
-    } else {
-        diag(pmax(vpars.raw[seq_len(ntrait)] * sigma2, 0))
+.extract_Ga_gp <- function(gpModel, sigma2, ntrait, trait.levels,
+                           Trait = gpModel$QTL$Trait) {
+    # Delegate to the shared name-based extractor (engine_select.R).  The
+    # G.param key cannot be used to identify the structure because ASReml
+    # strips non-fa wrappers (corgh(Trait):vm(...) -> "Trait:vm(...)").
+    if (is.null(Trait)) {
+        # Infer the Trait factor name from the vparameter names
+        # (e.g. "...!Trial_T1" -> "Trial"); fa names carry no Trait prefix.
+        nms   <- names(gpModel$vparameters)
+        nms   <- nms[grep("vm.*covObj|mbf.*ints", nms)]
+        cand  <- sub("^[^!]*!([^!_]+)[_!].*$", "\\1", nms)
+        Trait <- if (length(cand)) cand[1L] else ""
     }
-    dimnames(Ga) <- list(trait.levels, trait.levels)
-    Ga
+    .extractVmGa(gpModel, Trait, trait.levels, sigma2)
 }

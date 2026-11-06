@@ -460,7 +460,7 @@ test_that(".buildGenomeModel: diag residual does NOT trigger upgrade (stays diag
     expect_true(grepl("diag\\(Site\\):vm\\(id", rhs))
 })
 
-test_that(".buildGenomeModel: us(Trial) residual triggers corgh upgrade (same as corgh)", {
+test_that(".buildGenomeModel: us(Trial) residual mirrors to us on the additive term", {
     set.seed(7)
     genObj   <- make_wgCross_interval(n_lines = 5, n_chr = 1, n_mar = 8)
     gdat     <- lapply(genObj$geno, function(el) el$interval.data)
@@ -468,11 +468,13 @@ test_that(".buildGenomeModel: us(Trial) residual triggers corgh upgrade (same as
     rownames(genoData) <- paste0("L", 1:5)
     phenoData <- data.frame(id   = factor(paste0("L", 1:5)),
                             Site = factor(c("S1","S2","S1","S2","S1")))
-    # Base model has us(Site):id -- additive term should upgrade to corgh
+    # Base model has us(Site):id -- additive term should be flagged for a us
+    # upgrade (us() is supported on vm()/mbf() terms; it is NOT remapped to
+    # corgh, which converges less reliably for >= 4 groups).
     base_m   <- .mock_base_with_random("us(Site):id")
     caller_e <- new.env(parent = globalenv())
     captured <- list()
-    with_mocked_bindings(
+    gm <- with_mocked_bindings(
         update = function(object, random. = NULL, ...) {
             if (!is.null(random.)) captured[[length(captured) + 1L]] <<- random.
             object
@@ -486,6 +488,8 @@ test_that(".buildGenomeModel: us(Trial) residual triggers corgh upgrade (same as
     expect_length(captured, 1L)
     rhs1 <- deparse(captured[[1L]][[2]])
     expect_true(grepl("diag\\(Site\\):vm\\(id", rhs1))
+    expect_identical(gm$vm.struct, "us")
+    expect_false(gm$upgrade.to.fa)
 })
 
 test_that(".buildGenomeModel: vmterms[2] for us residual is us(Trait):merge.by", {

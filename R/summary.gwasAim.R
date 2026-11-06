@@ -72,6 +72,13 @@ summary.gwasAim <- function(object, genObj, LOD = TRUE, ...) {
     oth.terms  <- object$vparameters[-grep(mark.terms, names(object$vparameters))]
     var.mark   <- sigma2 * object$vparameters[grep(mark.terms, names(object$vparameters))] / scale
     var.res    <- sigma2 * oth.terms[grep(gterm, names(oth.terms))]
+    # Multivariate: per-trial variances (diag of the fitted covariance
+    # matrices), independent of the variance-structure parameterisation.
+    mvc <- .mvPercVarComponents(object, gterm, scale, sigma2)
+    if (!is.null(mvc)) {
+        var.mark <- mvc$var.mark
+        var.res  <- mvc$var.res
+    }
 
     # Multivariate: use the final PRUNED model's fixed coefficients.
     # object$QTL$effects comes from the loop model which had both

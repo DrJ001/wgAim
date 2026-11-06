@@ -22,61 +22,21 @@
     sterms <- "vm.*covObj|mbf.*ints"
     vp     <- asm$vparameters
 
+    # Trait levels used for Ga extraction and column names of scaled.mat
+    trait.levels <- if (!is.null(Trait)) levels(phenoData[[Trait]]) else NULL
+
     if (ntrait == 1L) {
         avar <- vp[grep(sterms, names(vp))] * sigma2
         Ga   <- matrix(avar, 1L, 1L)
     } else {
-        rterms.all <- attr(terms.formula(asm$call$random), "term.labels")
-        mterm      <- rterms.all[grep(sterms, rterms.all)]
-        vpars      <- vp[grep(sterms, names(vp))] * sigma2
-        if (grepl("diag", mterm)) {
-            Ga <- diag(vpars, ntrait)
-        } else if (grepl("corh|corgh", mterm)) {
-            # corh/corgh vparameters in ASReml are stored:
-            #   correlations first (names end in ".cor"), then variances.
-            # Variances are ratios to sigma2 and need * sigma2.
-            # Correlations are in [-1,1] and must NOT be multiplied by sigma2.
-            vpar.nms  <- names(vp)[grep(sterms, names(vp))]
-            vpars.raw <- vp[grep(sterms, names(vp))]
-            is.cor    <- grepl("\\.cor$", vpar.nms)
-            var.pars  <- pmax(vpars.raw[!is.cor] * sigma2, 0)
-            cor.pars  <- vpars.raw[is.cor]
-            sds  <- sqrt(var.pars)
-            Ga   <- diag(var.pars)
-            idx  <- 0L
-            for (col in seq_len(ntrait - 1L)) {
-                for (row in (col + 1L):ntrait) {
-                    idx <- idx + 1L
-                    Ga[row, col] <- Ga[col, row] <- cor.pars[idx] * sds[row] * sds[col]
-                }
-            }
-        } else if (grepl("fa", mterm)) {
-            # fa(Trait, k) vparameters are ordered:
-            #   [1:ntrait]       specific variances Psi_j  (ratios to sigma2)
-            #   [ntrait+1 : end] factor loadings Lambda_jk (raw scale, not /sigma2)
-            # ASReml includes the identifiability-constrained loading (con=4,
-            # value=0) in vparameters, so the total is always ntrait*(n.fa+1).
-            # Separate by name: !var = Psi; !fa[k] = Lambda.
-            n.fa      <- as.integer(sub(".*,\\s*(\\d+)\\).*", "\\1", mterm))
-            vpar.nms  <- names(vp)[grep(sterms, names(vp))]
-            vpars.raw <- vp[grep(sterms, names(vp))]
-            is.loading <- grepl("!fa[0-9]+$", vpar.nms)
-            psi <- pmax(vpars.raw[!is.loading] * sigma2, 0)
-            Lam <- matrix(vpars.raw[is.loading], ncol = n.fa)
-            Ga  <- Lam %*% t(Lam) + diag(as.numeric(psi))
-            # When specific variances hit the boundary (zero), Ga is rank-deficient.
-            # MASS::ginv() computes the Moore-Penrose pseudoinverse, which is the
-            # correct generalised inverse Ga^- without ad-hoc regularisation.
-        } else {
-            # Fallback: treat as unstructured
-            Ga <- diag(vpars[1:ntrait])
-        }
+        # Structure-agnostic extraction keyed on vparameter names
+        # (diag / corh / corgh / us / fa(k)).  When fa specific variances hit
+        # the boundary (zero), Ga is rank-deficient; MASS::ginv() then gives
+        # the correct Moore-Penrose generalised inverse Ga^-.
+        Ga   <- .extractVmGa(asm, Trait, trait.levels, sigma2)
         avar <- NA_real_   # not used directly when ntrait > 1
     }
     Ginv <- if (ntrait == 1L) matrix(1 / Ga[1L, 1L], 1L, 1L) else MASS::ginv(Ga)
-
-    # Trait levels used for column names of scaled.mat (ntrait > 1 only)
-    trait.levels <- if (!is.null(Trait)) levels(phenoData[[Trait]]) else NULL
 
     # scaled.mat: nmarkers x ntrait signed z-scores; populated inside vm/mbf branches
     scaled.mat <- NULL
@@ -89,11 +49,16 @@
 
     if (!is.null(cov.env <- attr(intervalObj, "env"))) {
         # vm path
-        rterms.all <- attr(terms.formula(asm$call$random), "term.labels")
-        vmterm.raw <- rterms.all[grep("vm.*covObj", rterms.all)]
-        # vmterm.only: G.param key used for predict(only=) in the UV case.
-        # MV predict(only=) requires the raw formula string (vmterm.raw) because
-        # ASReml matches on the formula term, not the G.param key.
+        # vmterm.only: the G.param key of the vm term, used for predict(only=)
+        # in both UV and MV paths.  ASReml strips non-fa variance-model
+        # wrappers from term names, e.g.
+        #   corgh(Trait):vm(id, covObj)  -> "Trait:vm(id, covObj)"
+        #   diag/corh/us(Trait):vm(...)  -> "Trait:vm(id, covObj)"
+        #   fa(Trait, k):vm(id, covObj)  -> "fa(Trait, k):vm(id, covObj)"
+        # Passing the raw formula string for a non-fa structure does NOT match
+        # any model term: predict() then silently ignores `only` (returning
+        # full fitted values incl. fixed effects) or, on some ASReml builds,
+        # returns no vcov -- both of which break the outlier statistics.
         vmterm.only <- names(asm$G.param)[grep("vm.*covObj", names(asm$G.param))]
 
         if (ntrait == 1L) {
@@ -105,10 +70,12 @@
             qhalf   <- cov.env$trans %*% vatilde
             vqtilde <- colSums(t(qhalf) * t(cov.env$trans))
         } else {
-            # MV: use the raw formula term string for `only`, not the G.param key.
             classify.term <- paste(Trait, merge.by, sep = ":")
             pv   <- predict(asm, classify = classify.term,
-                            only = vmterm.raw, vcov = TRUE, data = phenoData, maxit = 1)
+                            only = vmterm.only, vcov = TRUE, data = phenoData, maxit = 1)
+            if (is.null(pv$vcov))
+                stop("predict() returned no variance matrix for the genomic term '",
+                     vmterm.only, "'. Cannot compute outlier statistics.")
             # Sort Trait-major: all lines for Trait 1 first, then Trait 2, ...
             # This matches kronecker(Ga, relm) which is block-structured as
             # Ga[i,j] * relm in Trait-major order.
@@ -151,29 +118,56 @@
             pevar   <- sigma2 * asm$vcoeff$random[mbf]
             vqtilde <- avar - pevar
         } else {
-            # mbf multivariate: coefficients are stacked [trait1 lines, trait2 lines, ...]
-            mbf     <- grep("mbf", rownames(asm$coefficients$random))
-            nlines  <- length(mbf) %/% ntrait
-            atilde  <- matrix(asm$coefficients$random[mbf, 1L],
-                               nrow = nlines, ncol = ntrait, byrow = FALSE)
-            pevar.v <- sigma2 * asm$vcoeff$random[mbf]
-            # Approximate vatilde as kronecker diagonal
-            vatilde <- kronecker(Ga, diag(nlines)) -
-                       diag(pevar.v)
-            qtilde  <- apply(atilde, 1L, function(q) sum(q * (Ginv %*% q)))
-            vqtilde <- vapply(seq_len(nlines), function(i) {
-                Ti   <- kronecker(diag(ntrait), matrix(diag(nlines)[i, ], nrow = 1L))
-                tmp2 <- Ti %*% vatilde %*% t(Ti)
-                sum(diag(Ginv %*% tmp2))
-            }, numeric(1L))
-            # Signed scaled BLUPs (nmarkers x ntrait): per-trial z-scores.
-            # vatilde diagonal blocks: block j = rows/cols ((j-1)*nlines+1):(j*nlines).
-            scaled.mat <- matrix(0, nrow = nlines, ncol = ntrait,
+            # mbf multivariate.
+            #
+            # The denominator needs, per marker, the FULL ntrait x ntrait
+            # posterior block Ga - PEV(q_i).  ASReml's vcoeff only gives the
+            # PEV diagonal; combining it with the full Ga ignores the large
+            # cross-trait PEV covariances, drives every vqtilde <= 0 and zeroes
+            # all outlier statistics (forward selection then just takes the
+            # first marker left on Chr1).
+            #
+            # Exact route, mirroring the vm path: predict the line-level values
+            # u = M q of the mbf term per trait with a full vcov, then map to
+            # marker space with trans = M^+ (Moore-Penrose).  q lies in the row
+            # space of M, so q = M^+ u exactly for any lines/markers ratio
+            # (verified: max |M^+ u - q_BLUP| ~ 1e-5).  The prior of u is
+            # Ga (x) MM' with Ga the per-marker covariance.
+            M <- attr(intervalObj, "mbf.geno")
+            if (is.null(M))
+                stop("Internal error: marker matrix for the mbf path not found.")
+            mbf.key  <- asm$call$mbf$ints$key[1L]
+            mbf.only <- names(asm$G.param)[grep("mbf.*ints", names(asm$G.param))]
+            pv <- predict(asm, classify = paste(Trait, mbf.key, sep = ":"),
+                          only = mbf.only, vcov = TRUE, data = phenoData, maxit = 1)
+            if (is.null(pv$vcov))
+                stop("predict() returned no variance matrix for the genomic term '",
+                     mbf.only, "'. Cannot compute outlier statistics.")
+            lines.M <- rownames(M)
+            pl      <- as.character(pv$pvals[[mbf.key]])
+            keep    <- which(pl %in% lines.M)       # drops ".NoGeno"
+            ord     <- keep[order(match(as.character(pv$pvals[[Trait]][keep]), trait.levels),
+                                  match(pl[keep], lines.M))]
+            nlines  <- length(lines.M)
+            if (length(ord) != nlines * ntrait)
+                stop("Internal error: mbf line predictions do not match the marker matrix.")
+            atilde  <- matrix(pv$pvals$predicted.value[ord], nrow = nlines, ncol = ntrait)
+            atilde[is.na(atilde)] <- 0
+            pev     <- as.matrix(pv$vcov)[ord, ord]
+            pev[is.na(pev)] <- 0
+            trans   <- MASS::ginv(M)                 # nmarkers x nlines
+            dimnames(trans) <- list(colnames(M), rownames(M))
+            relm    <- tcrossprod(M)                 # nlines x nlines
+            qtilde.mat <- trans %*% atilde
+            vatilde    <- kronecker(Ga, relm) - pev
+            vqtilde    <- compute_vqtilde(trans, Ginv, as.matrix(vatilde), ntrait)
+            qtilde     <- apply(qtilde.mat, 1L, function(q) sum(q * (Ginv %*% q)))
+            scaled.mat <- matrix(0, nrow = nrow(qtilde.mat), ncol = ntrait,
                                  dimnames = list(NULL, trait.levels))
             for (j in seq_len(ntrait)) {
-                rows_j  <- ((j - 1L) * nlines + 1L):(j * nlines)
-                v_j     <- pmax(diag(vatilde[rows_j, rows_j]), 0)
-                scaled.mat[, j] <- ifelse(v_j > 0, atilde[, j] / sqrt(v_j), 0)
+                rows_j <- ((j - 1L) * nlines + 1L):(j * nlines)
+                v_j    <- pmax(rowSums((trans %*% vatilde[rows_j, rows_j]) * trans), 0)
+                scaled.mat[, j] <- ifelse(v_j > 0, qtilde.mat[, j] / sqrt(v_j), 0)
             }
         }
     }
@@ -322,4 +316,155 @@
         pass   <- pvalue <= TypeI
     }
     list(baseLogL = baseLogL, stat = stat, pvalue = pvalue, pass = pass)
+}
+
+# =============================================================================
+# .mbfEffectRows
+#
+# Row indices into model$coefficients$random of the per-level marker effects
+# of a multivariate mbf('ints') term, as an nmarkers x ntrait integer matrix
+# (column j = trait.levels[j], rows in the order of `markers`).
+#
+# ASReml-R 4.2 names these "<prefix>_<level>:mbf(\"ints\")_<marker>", where
+# <prefix> is the Trait name for diag/corh/corgh/us and "fa(Trait, k)" for
+# fa(Trait, k).  fa terms also carry "fa(Trait, k)_Comp<k>" factor-score
+# rows, which match no level and are excluded.  Rows are matched by level and
+# marker name, so no ordering is assumed.
+# =============================================================================
+#' @keywords internal
+.mbfEffectRows <- function(rn, Trait, trait.levels, markers) {
+    rows   <- grep("mbf", rn)
+    nms    <- rn[rows]
+    pre    <- sub(":mbf.*$", "", nms)
+    tr.pfx <- paste0(Trait, "_")
+    lev    <- ifelse(grepl("^fa\\(", pre),
+                     sub("^fa\\([^)]*\\)_", "", pre),
+                     ifelse(startsWith(pre, tr.pfx),
+                            substring(pre, nchar(tr.pfx) + 1L), NA_character_))
+    mark   <- sub("^.*mbf\\([^)]*\\)_", "", nms)
+    idx <- vapply(trait.levels, function(l) {
+        s <- which(lev == l)
+        rows[s][match(markers, mark[s])]
+    }, integer(length(markers)))
+    idx <- matrix(idx, nrow = length(markers), dimnames = list(markers, trait.levels))
+    if (anyNA(idx))
+        stop("Could not match the mbf marker effects of the fitted model to the ",
+             "genotype matrix for ", Trait, " level(s): ",
+             paste(trait.levels[colSums(is.na(idx)) > 0L], collapse = ", "), ".")
+    idx
+}
+
+# =============================================================================
+# .extractVmGa
+#
+# Build the ntrait x ntrait genetic covariance matrix Ga of the multivariate
+# genomic term (vm(...covObj) or mbf('ints')) from a fitted ASReml model.
+#
+# The structure is identified from the vparameter NAMES rather than the
+# formula text, because ASReml strips non-fa wrappers from term names
+# (corgh(Trait):vm(id, covObj) has G.param key "Trait:vm(id, covObj)").
+# Each parameter is placed by exact name, so no ordering is assumed.
+# ASReml 4.2 naming (suffix after the term key), for Trait = "Trial":
+#   diag  : !Trial_T1                         variances
+#   corh  : !Trial!cor + !Trial_T1 ...         one correlation + variances
+#   corgh : !Trial!T2:!Trial!T1.cor + !Trial_T1 ...
+#   us    : !Trial_T1:T1, !Trial_T2:T1, ...    lower triangle incl. diagonal
+#   fa(k) : !T1!var (Psi), !T1!fa1 ... !T1!fak (Lambda)
+#
+# Variances / covariances are ratios to sigma2 and are scaled by sigma2;
+# correlations and fa loadings are used as returned (consistent with the
+# previous implementation).  Negative variances are floored at zero.
+#
+# Returns a numeric matrix with dimnames = list(trait.levels, trait.levels).
+# =============================================================================
+#' @keywords internal
+# `term` : regular expression selecting the vparameters of the term to read.
+#   Default = the genomic vm/mbf term.  For the residual genetic term use
+#   paste0(":", gterm, "!") -- matches "Trial:Gsave!..." / "fa(Trial, 1):Gsave!..."
+#   but not "Trial:vm(Gsave, covObj)!...".
+.extractVmGa <- function(model, Trait, trait.levels, sigma2 = 1,
+                         term = "vm.*covObj|mbf.*ints") {
+    ntrait <- length(trait.levels)
+    vp     <- model$vparameters
+    sel    <- grep(term, names(vp))
+    if (!length(sel))
+        stop("No genomic (vm/mbf) variance parameters found in the model.")
+    vals <- as.numeric(vp[sel])
+    # Strip the term key (everything before the first "!") to get the suffix
+    sfx  <- sub("^[^!]*", "", names(vp)[sel])
+    pget <- function(s) vals[match(s, sfx)]
+    lev  <- trait.levels
+
+    fa.var <- paste0("!", lev, "!var")
+    us.dg  <- paste0("!", Trait, "_", lev, ":", lev)
+    v.nm   <- paste0("!", Trait, "_", lev)
+
+    if (all(fa.var %in% sfx)) {
+        # ---- fa(Trait, k) ------------------------------------------------
+        k   <- max(as.integer(sub(".*!fa([0-9]+)$", "\\1",
+                                  sfx[grepl("!fa[0-9]+$", sfx)])))
+        psi <- pmax(pget(fa.var) * sigma2, 0)
+        Lam <- vapply(seq_len(k), function(j) pget(paste0("!", lev, "!fa", j)),
+                      numeric(ntrait))
+        Lam <- matrix(Lam, nrow = ntrait)
+        Lam[is.na(Lam)] <- 0
+        Ga  <- Lam %*% t(Lam) + diag(psi, ntrait)
+    } else if (all(us.dg %in% sfx)) {
+        # ---- us(Trait) ---------------------------------------------------
+        Ga <- matrix(0, ntrait, ntrait)
+        for (i in seq_len(ntrait)) for (j in seq_len(i)) {
+            Ga[i, j] <- Ga[j, i] <-
+                pget(paste0("!", Trait, "_", lev[i], ":", lev[j])) * sigma2
+        }
+        diag(Ga) <- pmax(diag(Ga), 0)
+    } else if (all(v.nm %in% sfx)) {
+        # ---- diag / corh / corgh -----------------------------------------
+        var.pars <- pmax(pget(v.nm) * sigma2, 0)
+        sds      <- sqrt(var.pars)
+        R        <- diag(ntrait)
+        corh.nm  <- paste0("!", Trait, "!cor")
+        if (corh.nm %in% sfx) {
+            R[] <- pget(corh.nm)
+            diag(R) <- 1
+        } else {
+            for (i in seq_len(ntrait)) for (j in seq_len(i - 1L)) {
+                r <- pget(paste0("!", Trait, "!", lev[i], ":!", Trait, "!",
+                                lev[j], ".cor"))
+                if (!is.na(r)) R[i, j] <- R[j, i] <- r
+            }
+        }
+        Ga <- R * tcrossprod(sds)
+    } else {
+        stop("Unrecognised variance structure for the genomic term. ",
+             "Supported: diag, corh, corgh, us, fa(k). Parameters found: ",
+             paste(names(vp)[sel], collapse = ", "))
+    }
+    dimnames(Ga) <- list(trait.levels, trait.levels)
+    Ga
+}
+
+# =============================================================================
+# .mvPercVarComponents
+#
+# Per-trial variance components for the multivariate Perc.Var denominator in
+# summary.qtlAim() / summary.gwasAim():
+#   var.mark : diag(Ga) of the genomic term / rel.scale   (length ntrait)
+#   var.res  : diag(G)  of the residual genetic term      (length ntrait)
+#
+# Previously the summaries averaged ALL vparameters of these terms, which
+# includes correlations (corh/corgh), covariances (us) and loadings (fa), so
+# Perc.Var depended on the parameterisation of the same model.  Returns NULL
+# if a structure cannot be identified (caller keeps its fallback).
+# =============================================================================
+#' @keywords internal
+.mvPercVarComponents <- function(object, gterm, scale, sigma2) {
+    Trait <- object$QTL$Trait
+    lev   <- object$QTL$trait.levels
+    if (is.null(Trait) || is.null(lev)) return(NULL)
+    mb.esc <- gsub("([.|()\\^{}+$*?\\[\\]\\\\])", "\\\\\\1", gterm)
+    tryCatch(list(
+        var.mark = diag(.extractVmGa(object, Trait, lev, sigma2)) / scale,
+        var.res  = diag(.extractVmGa(object, Trait, lev, sigma2,
+                                     term = paste0(":", mb.esc, "!")))
+    ), error = function(e) NULL)
 }
