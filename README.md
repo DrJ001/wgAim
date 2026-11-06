@@ -286,7 +286,7 @@ qtl.fit <- qtlAim(baseModel, genObj, merge.by, fix.lines = TRUE,
 | `trace` | `TRUE` (default) prints ASReml output to console; a file path redirects it to that file |
 | `verboseLev` | `0` (default, silent) or `1` — prints per-interval outlier statistics at each iteration |
 | `Trait` | Column name of a trial/environment factor for multivariate G×E QTL analysis |
-| `str` | Variance structure on the multivariate genomic term: `NULL` (default, mirrors base model), `"corh"`, `"corgh"`, `"us"`, `"diag"`, `"fa1"`, `"fa2"`, etc. |
+| `str` | Variance structure on the multivariate genomic term: `NULL` (default, mirrors base model), `"corh"`, `"corgh"`, `"us"`, `"diag"`, `"fa1"`, `"fa2"`, etc. For an unstructured covariance with ≥ 4 groups prefer `"us"` / `us(Trait):id` over `corgh` (same model, more reliable convergence in ASReml). |
 | `...` | Additional arguments passed to `update.asreml()` at each iteration |
 
 ### GWAS — `gwasAim()`
@@ -315,7 +315,7 @@ gwas.fit <- gwasAim(baseModel, genObj, merge.by, fix.lines = TRUE,
 | `trace` | `TRUE` (default) prints ASReml output to console; a file path redirects it to that file |
 | `verboseLev` | `0` (default) or `1` — prints per-marker outlier statistics at each iteration |
 | `Trait` | Column name of a trial/environment factor for multivariate G×E GWAS |
-| `str` | Variance structure on the multivariate genomic term: `NULL` (default, mirrors base model), `"corh"`, `"corgh"`, `"us"`, `"diag"`, `"fa1"`, `"fa2"`, etc. |
+| `str` | Variance structure on the multivariate genomic term: `NULL` (default, mirrors base model), `"corh"`, `"corgh"`, `"us"`, `"diag"`, `"fa1"`, `"fa2"`, etc. For an unstructured covariance with ≥ 4 groups prefer `"us"` / `us(Trait):id` over `corgh` (same model, more reliable convergence in ASReml). |
 | `...` | Additional arguments passed to `update.asreml()` at each iteration |
 
 Note: `method = "fixed"` and `selection = "interval"` are fixed internally.
@@ -343,7 +343,7 @@ gp.fit <- gpAim(baseModel, genObj, merge.by, fix.lines = TRUE,
 | `force` | If `TRUE`, forces the `mbf` engine regardless of the markers-to-lines ratio |
 | `trace` | `TRUE` (default) prints ASReml output to console; a file path redirects it to that file |
 | `Trait` | Column name of a trial/environment factor for multivariate genomic prediction |
-| `str` | Variance structure on the multivariate genomic term: `NULL` (default, mirrors base model), `"corh"`, `"corgh"`, `"us"`, `"diag"`, `"fa1"`, `"fa2"`, etc. |
+| `str` | Variance structure on the multivariate genomic term: `NULL` (default, mirrors base model), `"corh"`, `"corgh"`, `"us"`, `"diag"`, `"fa1"`, `"fa2"`, etc. For an unstructured covariance with ≥ 4 groups prefer `"us"` / `us(Trait):id` over `corgh` (same model, more reliable convergence in ASReml). |
 | `...` | Additional arguments passed to `update.asreml()` |
 
 Key outputs stored in `$GP`:

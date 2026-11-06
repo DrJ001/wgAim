@@ -377,8 +377,10 @@ fineMap <- function(object, genObj, qtl = NULL, window = 50, step = 2,
                 cov_env_k <- .constructCM(genoSub)
                 covObj    <- cov_env_k$relm
             } else {
-                covObj    <- cbind.data.frame(rownames(genoSub), genoSub)
-                names(covObj)[1] <- gterm
+                # Use the fitted model's own mbf key (Gmbf / Gsave / merge.by)
+                mbf.key   <- object$call$mbf$ints$key[1L]
+                if (is.null(mbf.key)) mbf.key <- gterm
+                covObj    <- .mbfCovObj(genoSub, mbf.key)
             }
             assign("covObj", covObj, envir = parent.frame())
 

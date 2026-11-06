@@ -80,13 +80,19 @@ the additive genomic term (\code{vm()} or \code{mbf()}) when
 \code{Trait} is non-\code{NULL}. Options:
 \describe{
   \item{\code{NULL} (default)}{Mirror the structure on the genetic line
-    term in \code{baseModel}'s random formula: \code{corh}/\code{corgh}/
-    \code{us} maps to \code{corgh(Trait):vm()}; \code{fa(Trait,k)} maps
-    to \code{fa(Trait,k):vm()}; \code{diag} stays as
+    term in \code{baseModel}'s random formula: \code{corh},
+    \code{corgh}, \code{us} and \code{fa(Trait,k)} each map to the same
+    structure on \code{vm()}; \code{diag} stays as
     \code{diag(Trait):vm()} (independent per-environment GEBVs).}
-  \item{\code{"corh"} / \code{"corgh"} / \code{"us"}}{Force
-    \code{corgh(Trait):vm()}: heterogeneous variances with a common
-    genetic correlation across environments.}
+  \item{\code{"corh"}}{Force \code{corh(Trait):vm()}: heterogeneous
+    variances with a single common genetic correlation.}
+  \item{\code{"corgh"} / \code{"us"}}{Force \code{corgh(Trait):vm()} or
+    \code{us(Trait):vm()}: fully unstructured genetic covariance (the
+    same model in two parameterisations).  With four or more
+    environments prefer \code{"us"} (and \code{us(Trait):id} in
+    \code{baseModel}): ASReml's \code{corgh} parameterisation frequently
+    fails to converge, or stops at a local optimum, where \code{us}
+    converges.}
   \item{\code{"fa1"}, \code{"fa2"}, \dots}{Force
     \code{fa(Trait,k):vm()} with \eqn{k} factors. The number must be
     explicit; \code{str = "fa"} alone returns an error.}

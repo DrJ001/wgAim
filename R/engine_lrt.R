@@ -118,6 +118,7 @@ qchisq.mixture <- function(prob, ntrait = 2L, tol = .Machine$double.eps^0.5) {
     # Use .rhs_terms() for robustness with long/repeatedly-updated formulas.
     lrt.all.rt   <- .rhs_terms(qtlModel$call$random)
     lrt.vm.idx   <- grep("vm.*covObj|mbf.*ints", lrt.all.rt)
+    lrt.orig.rt  <- lrt.all.rt
     lrt.cur.term <- lrt.all.rt[lrt.vm.idx[1L]]
     if (!startsWith(lrt.cur.term, lrt.diag.pfx))
         lrt.all.rt[lrt.vm.idx] <- paste0(lrt.diag.pfx,
@@ -135,8 +136,17 @@ qchisq.mixture <- function(prob, ntrait = 2L, tol = .Machine$double.eps^0.5) {
                     lrt.diag.pfx, sub("^[^:]+:", "", rt))
         }
     }
-    lrt.diag.ran <- as.formula(paste("~", paste(lrt.all.rt, collapse = " + ")))
-    qtlForLRT    <- update(qtlModel, random. = lrt.diag.ran, R.param = NULL, G.param = NULL, ...)
+    # Only refit when the random formula actually changed.  When the vm/mbf
+    # term is already diag(Trait): and no FA residual downgrade is needed
+    # (e.g. the pre-loop LRT with a corh/corgh/us residual), qtlModel IS the
+    # LRT model -- refitting it from default starting values (G.param = NULL)
+    # is wasteful and can fail to converge for well-determined models.
+    if (identical(lrt.all.rt, lrt.orig.rt)) {
+        qtlForLRT <- qtlModel
+    } else {
+        lrt.diag.ran <- as.formula(paste("~", paste(lrt.all.rt, collapse = " + ")))
+        qtlForLRT    <- update(qtlModel, random. = lrt.diag.ran, R.param = NULL, G.param = NULL, ...)
+    }
 
     # Build baseForLRT: for FA residual, replace ONLY the residual genetic
     # term with its diag(Trait): version — all other random terms (spatial,

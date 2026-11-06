@@ -33,6 +33,35 @@
 }
 
 #' @keywords internal
+# .mbfKey / .mbfCovObj
+#
+# Covariate data frame and key column for the mbf('ints') path.
+#
+# When .fixLines() has run (merge.by == "Gsave"), ungenotyped lines carry
+# Gsave = NA.  ASReml-R 4.2 mishandles NA keys in mbf(): it reports
+# "Unexpected number of random labels" (one extra label per Trait level) and
+# returns a wrong REML fit flagged as converged (e.g. logL 124.9 vs 160.5 for
+# the equivalent vm model).  .fixLines() therefore also creates the key
+# column Gmbf = Gsave with NA -> ".NoGeno", and the mbf covariate table gets
+# an all-zero marker row for ".NoGeno".  A zero row contributes no genomic
+# effect, so ungenotyped lines are treated exactly as on the vm path (where
+# Gsave = NA gives no vm effect); the Gsave residual genetic term itself is
+# unchanged.
+.mbfKey <- function(merge.by) if (identical(merge.by, "Gsave")) "Gmbf" else merge.by
+
+.mbfCovObj <- function(genoSub, key) {
+    ids <- rownames(genoSub)
+    if (identical(key, "Gmbf")) {
+        genoSub <- rbind(genoSub, matrix(0, 1L, ncol(genoSub),
+                                         dimnames = list(".NoGeno", colnames(genoSub))))
+        ids <- c(ids, ".NoGeno")
+    }
+    covObj <- cbind.data.frame(ids, genoSub, stringsAsFactors = FALSE)
+    names(covObj)[1L] <- key
+    covObj
+}
+
+#' @keywords internal
 .buildGenomeModel <- function(baseModel, genoData, phenoData, merge.by,
                                intervalObj, force, rterms, caller.env,
                                Trait = NULL, str = NULL, ...) {
@@ -70,19 +99,22 @@
     # Determine upgrade flags and n.fa from str (explicit) or residual (mirror).
     #
     # str = NULL  -> mirror the residual structure exactly:
-    #   corh / corgh / us in residual  -> upgrade additive to corgh
+    #   corh / corgh / us in residual  -> upgrade additive to the same structure
     #   fa(Trial, k) in residual       -> upgrade additive to fa(Trial, k)
     #   diag / bare                    -> no upgrade
     #
     # str non-NULL -> override, regardless of residual structure:
-    #   "corh" / "corgh" / "us"  -> upgrade additive to corgh
+    #   "corh" / "corgh" / "us"  -> upgrade additive to that structure
     #   "fa2", "fa3", ...         -> upgrade additive to fa(Trial, k)
     #   "diag"                    -> no upgrade (independent per group level)
     #   "fa" (no number)          -> error: number of factors must be specified
     #
-    # us(Trial) maps to corgh on the additive term: both span the same space of
-    # positive-definite matrices but corgh is the natural ASReml parameterisation
-    # for vm() / mbf() terms.
+    # us() IS supported on vm() and mbf() terms (verified ASReml-R 4.2,
+    # scratch/probe_us_genomic.R).  corgh and us span the same covariance
+    # space and reach the same REML optimum when both converge, but with >= 4
+    # trials the corgh parameterisation (correlations bounded in [-1, 1])
+    # frequently aborts or stalls at a local optimum where us converges, so a
+    # us() residual is mirrored as us(), not corgh().
     # -------------------------------------------------------------------------
     # vm.struct: the exact variance structure prefix to apply to the additive
     # genomic term.  NULL = no upgrade (diag or bare univariate).
@@ -93,15 +125,13 @@
 
     if (is.null(str)) {
         # Mirror from residual: extract the structure name from struct.prefix.
-        # For us() in the residual we mirror to "corgh" -- us() is not supported
-        # as a variance structure on vm()/mbf() terms in ASReml.
         if (has.struct) {
             if (grepl("^corh\\(", struct.prefix))
                 vm.struct <- "corh"
             else if (grepl("^corgh\\(", struct.prefix))
                 vm.struct <- "corgh"
             else if (grepl("^us\\(", struct.prefix))
-                vm.struct <- "corgh"   # us not supported on vm; fall back to corgh
+                vm.struct <- "us"
             else if (grepl("^fa\\(", struct.prefix)) {
                 vm.struct     <- "fa"
                 n.fa          <- as.integer(sub(".*,\\s*(\\d+)\\).*", "\\1", struct.prefix))
@@ -149,11 +179,15 @@
         vmterms  <- c(gterm, resid.term)
         ran.form <- as.formula(paste(c("~", vmterms, rterms), collapse = " + "))
         attr(intervalObj, "env") <- cov.env
+        attr(intervalObj, "mbf.geno") <- NULL
         vm <- TRUE
     } else {
-        covObj <- cbind.data.frame(rownames(genoData), genoData)
-        names(covObj)[1] <- merge.by
-        qtlModel$call$mbf$ints$key <- rep(merge.by, 2)
+        mbf.key <- .mbfKey(merge.by)
+        covObj  <- .mbfCovObj(genoData, mbf.key)
+        # Current marker matrix (lines x markers) for the MV mbf outlier
+        # statistics in .qtlSelect()
+        attr(intervalObj, "mbf.geno") <- genoData
+        qtlModel$call$mbf$ints$key <- rep(mbf.key, 2)
         qtlModel$call$mbf$ints$cov <- "covObj"
         gterm   <- paste0(diag.prefix, "mbf('ints')")
         vmterms <- c(gterm, resid.term)
@@ -258,9 +292,11 @@
         cov.env <- .constructCM(genoSub)
         covObj  <- cov.env$relm
         attr(intervalObj, "env") <- cov.env
+        attr(intervalObj, "mbf.geno") <- NULL
     } else {
-        covObj <- cbind.data.frame(rownames(genoSub), genoSub)
-        names(covObj)[1] <- merge.by
+        mbf.key <- .mbfKey(merge.by)
+        covObj  <- .mbfCovObj(genoSub, mbf.key)
+        attr(intervalObj, "mbf.geno") <- genoSub
         if (is.null(qtlModel$call$mbf$ints) & vm) {
             # vm -> mbf switch: reconstruct the random formula, preserving the
             # variance structure prefix (e.g. "diag(Trial):", "corgh(Trial):",
@@ -281,7 +317,7 @@
             vm.core      <- paste0("vm\\(", merge.by, ",\\s*covObj\\)$")
             struct.prefix <- sub(vm.core, "", vm.term)
             mbf.term     <- paste0(struct.prefix, "mbf('ints')")
-            qtlModel$call$mbf$ints$key <- rep(merge.by, 2)
+            qtlModel$call$mbf$ints$key <- rep(mbf.key, 2)
             qtlModel$call$mbf$ints$cov <- "covObj"
             ran.form <- as.formula(paste("~",
                 paste(c(mbf.term, vmterms[2L], other.rterms), collapse = " + ")))

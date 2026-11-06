@@ -113,12 +113,19 @@
 #'   group-by-genotype interaction QTL.  Default \code{NULL} (univariate).
 #' @param str Character string controlling the variance structure of the
 #'   additive genomic term in the multivariate model.  \code{NULL} (default)
-#'   mirrors the structure on the residual genetic term in \code{baseModel}.
+#'   mirrors the structure on the residual genetic term in \code{baseModel}
+#'   (\code{corh}, \code{corgh}, \code{us} and \code{fa(Trait, k)} each map
+#'   to the same structure; \code{diag} stays \code{diag}).
 #'   Explicit options: \code{"corh"}, \code{"corgh"}, \code{"us"},
 #'   \code{"diag"}, or \code{"fa1"}, \code{"fa2"}, etc. for factor-analytic
 #'   structures.  The number of factors must be stated explicitly;
 #'   \code{str = "fa"} alone is an error.  Only relevant when
-#'   \code{Trait} is non-\code{NULL}.
+#'   \code{Trait} is non-\code{NULL}.  For an unstructured genetic covariance
+#'   with four or more groups, prefer \code{us(Trait):id} over
+#'   \code{corgh(Trait):id} in \code{baseModel} (and \code{"us"} over
+#'   \code{"corgh"} here): the two are the same model, but ASReml's
+#'   \code{corgh} parameterisation frequently fails to converge, or stops at a
+#'   local optimum, where \code{us} converges.
 #' @param \dots Additional arguments passed to all internal
 #'   \code{\link[asreml]{update.asreml}} calls, such as
 #'   \code{na.action = na.method(x = "include")} or \code{maxit}.

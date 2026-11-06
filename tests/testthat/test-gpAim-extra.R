@@ -218,10 +218,11 @@ test_that(".cullis_H2: returns NA when no finite positive upper-triangle values"
 # 3.  .extract_Ga_gp internal helper
 # =============================================================================
 
-.make_gpModel_diag <- function(ntrait = 2, sigma2 = 1.0) {
-    tl   <- paste0("T", seq_len(ntrait))
+# Mock vparameter names follow real ASReml 4.2 naming (see .extractVmGa()).
+.make_gpModel_diag <- function(ntrait = 2, sigma2 = 1.0,
+                               tl = paste0("T", seq_len(ntrait))) {
     vpar <- setNames(c(rep(0.5, ntrait), 1.0),
-                     c(paste0("Trial:vm(id, covObj)!Trial_", seq_len(ntrait)), "R!variance"))
+                     c(paste0("Trial:vm(id, covObj)!Trial_", tl), "R!variance"))
     g <- list(
         vparameters = vpar,
         sigma2      = sigma2,
@@ -233,9 +234,9 @@ test_that(".cullis_H2: returns NA when no finite positive upper-triangle values"
 
 .make_gpModel_corh <- function(ntrait = 2, sigma2 = 1.0) {
     tl   <- paste0("T", seq_len(ntrait))
-    # corh stores: correlations first (ending .cor), then variances
-    cor.nms <- "corh(Trial):vm(id, covObj)!Trial.cor"
-    var.nms <- paste0("corh(Trial):vm(id, covObj)!Trial_", seq_len(ntrait))
+    # corh stores: the single correlation first ("!Trial!cor"), then variances
+    cor.nms <- "Trial:vm(id, covObj)!Trial!cor"
+    var.nms <- paste0("Trial:vm(id, covObj)!Trial_", tl)
     vpar    <- setNames(c(0.6, rep(0.5, ntrait), 1.0),
                         c(cor.nms, var.nms, "R!variance"))
     g <- list(
@@ -267,11 +268,12 @@ test_that(".extract_Ga_gp: corh structure returns symmetric matrix", {
     Ga <- .extract_Ga_gp(gm, 1.0, 2L, c("T1", "T2"))
     expect_equal(dim(Ga), c(2L, 2L))
     expect_equal(Ga, t(Ga))
+    expect_equal(unname(Ga[1, 2]), 0.6 * 0.5)
 })
 
 test_that(".extract_Ga_gp: dimnames match trait levels", {
-    gm <- .make_gpModel_diag(ntrait = 3)
     tl <- c("E1", "E2", "E3")
+    gm <- .make_gpModel_diag(ntrait = 3, tl = tl)
     Ga <- .extract_Ga_gp(gm, 1.0, 3L, tl)
     expect_equal(rownames(Ga), tl)
     expect_equal(colnames(Ga), tl)

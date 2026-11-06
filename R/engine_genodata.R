@@ -38,6 +38,11 @@
         phenoData$Gomit <- phenoData$Gsave <- plines
         levels(phenoData$Gsave)[!whg] <- NA
         levels(phenoData$Gomit)[whg] <- "GEN"
+        # Key for the mbf('ints') path: ASReml mishandles NA mbf keys, so
+        # ungenotyped lines map to ".NoGeno", which .mbfCovObj() gives an
+        # all-zero marker row (see engine_model.R).  Unused on the vm path.
+        phenoData$Gmbf <- factor(ifelse(is.na(phenoData$Gsave), ".NoGeno",
+                                        as.character(phenoData$Gsave)))
         # Multivariate: absorb omitted-line effects within each Trait level.
         # Univariate: bare Gomit is sufficient.
         gomit.term <- if (!is.null(Trait))
