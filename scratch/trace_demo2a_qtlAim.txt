@@ -1,0 +1,7 @@
+
+Random Effects Interval/Marker Model Iteration (1):
+============================================
+===============================================
+  WARNING in Demo 2a — qtlAim two trials : Some components changed by more than 1% on the last iteration. 
+ Predict step for outlier statistics 
+=====================================

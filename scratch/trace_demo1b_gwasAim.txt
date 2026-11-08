@@ -1,0 +1,129 @@
+
+GWAS significance threshold (TypeI): 0.0500  (1000 markers in panel)
+
+Random Effects Interval/Marker Model Iteration (1):
+============================================
+  WARNING in Demo 1b — gwasAim : Some components changed by more than 1% on the last iteration. 
+ Predict step for outlier statistics 
+=====================================
+
+Fixed Effects QTL Model Iteration ( 1 ):
+========================================
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 1 ):
+============================================================
+ Predict step for outlier statistics 
+=====================================
+
+Fixed Effects QTL Model Iteration ( 2 ):
+========================================
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 2 ):
+============================================================
+ Predict step for outlier statistics 
+=====================================
+
+Fixed Effects QTL Model Iteration ( 3 ):
+========================================
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 3 ):
+============================================================
+ Predict step for outlier statistics 
+=====================================
+
+Fixed Effects QTL Model Iteration ( 4 ):
+========================================
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 4 ):
+============================================================
+ Predict step for outlier statistics 
+=====================================
+
+Fixed Effects QTL Model Iteration ( 5 ):
+========================================
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 5 ):
+============================================================
+ Predict step for outlier statistics 
+=====================================
+
+Fixed Effects QTL Model Iteration ( 6 ):
+========================================
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 6 ):
+============================================================
+ Predict step for outlier statistics 
+=====================================
+
+Fixed Effects QTL Model Iteration ( 7 ):
+========================================
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 7 ):
+============================================================
+ Predict step for outlier statistics 
+=====================================
+
+Fixed Effects QTL Model Iteration ( 8 ):
+========================================
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 8 ):
+============================================================
+ Predict step for outlier statistics 
+=====================================
+
+Fixed Effects QTL Model Iteration ( 9 ):
+========================================
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 9 ):
+============================================================
+ Predict step for outlier statistics 
+=====================================
+
+Fixed Effects QTL Model Iteration ( 10 ):
+========================================
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 10 ):
+============================================================
+ Predict step for outlier statistics 
+=====================================
+
+Fixed Effects QTL Model Iteration ( 11 ):
+========================================
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 11 ):
+============================================================
+ Predict step for outlier statistics 
+=====================================
+
+Fixed Effects QTL Model Iteration ( 12 ):
+========================================
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 12 ):
+============================================================
+ Predict step for outlier statistics 
+=====================================
+
+Fixed Effects QTL Model Iteration ( 13 ):
+========================================
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 13 ):
+============================================================
+ Predict step for outlier statistics 
+=====================================
+
+Fixed Effects QTL Model Iteration ( 14 ):
+========================================
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 14 ):
+============================================================
+ Predict step for outlier statistics 
+=====================================
+
+Fixed Effects QTL Model Iteration ( 15 ):
+========================================
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 15 ):
+============================================================
+  WARNING in Demo 1b — gwasAim : Some components changed by more than 1% on the last iteration. 
+ Predict step for outlier statistics 
+=====================================

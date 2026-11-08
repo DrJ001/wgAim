@@ -1,0 +1,45 @@
+
+Random Effects Interval/Marker Model Iteration (1):
+============================================
+ Predict step for outlier statistics 
+=====================================
+
+Fixed Effects QTL Model Iteration ( 1 ):
+========================================
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 1 ):
+============================================================
+ Predict step for outlier statistics 
+=====================================
+
+Fixed Effects QTL Model Iteration ( 2 ):
+========================================
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 2 ):
+============================================================
+ Predict step for outlier statistics 
+=====================================
+
+Fixed Effects QTL Model Iteration ( 3 ):
+========================================
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 3 ):
+============================================================
+ Predict step for outlier statistics 
+=====================================
+
+Fixed Effects QTL Model Iteration ( 4 ):
+========================================
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 4 ):
+============================================================
+ Predict step for outlier statistics 
+=====================================
+
+Fixed Effects QTL Model Iteration ( 5 ):
+========================================
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 5 ):
+============================================================
+ Predict step for outlier statistics 
+=====================================

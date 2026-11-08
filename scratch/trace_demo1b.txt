@@ -1,0 +1,63 @@
+
+GWAS significance threshold (TypeI): 0.0500  (400 markers in panel)
+
+Random Effects Interval/Marker Model Iteration (1):
+============================================
+
+Likelihood Ratio Test of Additive Variance (initial):
+======================================================
+ Predict step for outlier statistics 
+=====================================
+
+Fixed Effects QTL Model Iteration ( 1 ):
+========================================
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 1 ):
+============================================================
+
+Likelihood Ratio Test of Additive Variance - Iteration ( 1 ):
+=================================================================
+ Predict step for outlier statistics 
+=====================================
+
+Fixed Effects QTL Model Iteration ( 2 ):
+========================================
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 2 ):
+============================================================
+
+Likelihood Ratio Test of Additive Variance - Iteration ( 2 ):
+=================================================================
+ Predict step for outlier statistics 
+=====================================
+
+Fixed Effects QTL Model Iteration ( 3 ):
+========================================
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 3 ):
+============================================================
+
+Likelihood Ratio Test of Additive Variance - Iteration ( 3 ):
+=================================================================
+ Predict step for outlier statistics 
+=====================================
+
+Fixed Effects QTL Model Iteration ( 4 ):
+========================================
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 4 ):
+============================================================
+
+Likelihood Ratio Test of Additive Variance - Iteration ( 4 ):
+=================================================================
+ Predict step for outlier statistics 
+=====================================
+
+Fixed Effects QTL Model Iteration ( 5 ):
+========================================
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 5 ):
+============================================================
+
+Likelihood Ratio Test of Additive Variance - Iteration ( 5 ):
+=================================================================

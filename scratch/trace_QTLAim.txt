@@ -1,0 +1,131 @@
+
+Fixing lines and updating initial base model:
+============================================
+Model fitted using the gamma parameterization.
+ASReml 4.1.0 Sat May  9 19:55:41 2026
+          LogLik        Sigma2     DF     wall    cpu
+ 1       130.060      0.189734    511 19:55:41    0.0
+ 2       181.707      0.113041    511 19:55:41    0.0
+ 3       213.758      0.074514    511 19:55:41    0.0
+ 4       222.908      0.060444    511 19:55:41    0.0
+ 5       224.173      0.055699    511 19:55:41    0.0
+ 6       224.204      0.055594    511 19:55:41    0.0
+ 7       224.207      0.055696    511 19:55:41    0.0
+ 8       224.208      0.055739    511 19:55:41    0.0
+
+Random Effects Interval/Marker Model Iteration (1):
+============================================
+Model fitted using the gamma parameterization.
+ASReml 4.1.0 Sat May  9 19:55:41 2026
+          LogLik        Sigma2     DF     wall    cpu
+ 1       197.604      0.111827    511 19:55:41    0.0
+ 2       225.818      0.086098    511 19:55:41    0.0
+ 3       250.867      0.067906    511 19:55:41    0.0
+ 4       259.231      0.058993    511 19:55:41    0.0
+ 5       260.370      0.055330    511 19:55:41    0.0
+ 6       260.411      0.055312    511 19:55:41    0.0
+ 7       260.416      0.055409    511 19:55:41    0.0
+ 8       260.417      0.055443    511 19:55:41    0.0
+
+Fixed Effects QTL Model Iteration ( 1 ):
+========================================
+Model fitted using the gamma parameterization.
+ASReml 4.1.0 Sat May  9 19:55:42 2026
+          LogLik        Sigma2     DF     wall    cpu
+ 1       252.788     0.0492583    510 19:55:42    0.0
+ 2       254.152     0.0512699    510 19:55:42    0.0
+ 3       255.062     0.0538865    510 19:55:42    0.0
+ 4       255.244     0.0558493    510 19:55:42    0.0
+ 5       255.246     0.0557132    510 19:55:42    0.0
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 1 ):
+============================================================
+Model fitted using the gamma parameterization.
+ASReml 4.1.0 Sat May  9 19:55:42 2026
+          LogLik        Sigma2     DF     wall    cpu
+ 1       264.553     0.0541700    510 19:55:42    0.0
+ 2       265.580     0.0546179    510 19:55:42    0.0
+ 3       266.068     0.0551060    510 19:55:42    0.0
+ 4       266.118     0.0553463    510 19:55:42    0.0
+ 5       266.118     0.0553218    510 19:55:42    0.0
+
+Fixed Effects QTL Model Iteration ( 2 ):
+========================================
+Model fitted using the gamma parameterization.
+ASReml 4.1.0 Sat May  9 19:55:42 2026
+          LogLik        Sigma2     DF     wall    cpu
+ 1       259.409     0.0541174    509 19:55:42    0.0
+ 2       259.464     0.0544864    509 19:55:42    0.0
+ 3       259.515     0.0552873    509 19:55:42    0.0
+ 4       259.516     0.0552100    509 19:55:42    0.0
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 2 ):
+============================================================
+Model fitted using the gamma parameterization.
+ASReml 4.1.0 Sat May  9 19:55:42 2026
+          LogLik        Sigma2     DF     wall    cpu
+ 1       267.051     0.0545754    509 19:55:42    0.0
+ 2       267.214     0.0548098    509 19:55:42    0.0
+ 3       267.302     0.0550863    509 19:55:42    0.0
+ 4       267.314     0.0552730    509 19:55:42    0.0
+ 5       267.314     0.0552606    509 19:55:42    0.0
+
+Fixed Effects QTL Model Iteration ( 3 ):
+========================================
+Model fitted using the gamma parameterization.
+ASReml 4.1.0 Sat May  9 19:55:42 2026
+          LogLik        Sigma2     DF     wall    cpu
+ 1       258.653     0.0546764    508 19:55:42    0.0
+ 2       258.661     0.0547971    508 19:55:42    0.0
+ 3       258.668     0.0550570    508 19:55:42    0.0
+ 4       258.668     0.0550439    508 19:55:42    0.0
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 3 ):
+============================================================
+Model fitted using the gamma parameterization.
+ASReml 4.1.0 Sat May  9 19:55:42 2026
+          LogLik        Sigma2     DF     wall    cpu
+ 1       266.369     0.0549191    508 19:55:42    0.0
+ 2       266.374     0.0550141    508 19:55:42    0.0
+ 3       266.378     0.0552185    508 19:55:42    0.0
+
+Fixed Effects QTL Model Iteration ( 4 ):
+========================================
+Model fitted using the gamma parameterization.
+ASReml 4.1.0 Sat May  9 19:55:42 2026
+          LogLik        Sigma2     DF     wall    cpu
+ 1       261.712     0.0536901    507 19:55:43    0.0
+ 2       261.762     0.0541624    507 19:55:43    0.0
+ 3       261.807     0.0552145    507 19:55:43    0.0
+ 4       261.807     0.0551813    507 19:55:43    0.0
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 4 ):
+============================================================
+Model fitted using the gamma parameterization.
+ASReml 4.1.0 Sat May  9 19:55:43 2026
+          LogLik        Sigma2     DF     wall    cpu
+ 1       265.250     0.0549613    507 19:55:43    0.0
+ 2       265.289     0.0550669    507 19:55:43    0.0
+ 3       265.314     0.0553003    507 19:55:43    0.0
+ 4       265.315     0.0552871    507 19:55:43    0.0
+
+Fixed Effects QTL Model Iteration ( 5 ):
+========================================
+Model fitted using the gamma parameterization.
+ASReml 4.1.0 Sat May  9 19:55:43 2026
+          LogLik        Sigma2     DF     wall    cpu
+ 1       263.444     0.0541529    506 19:55:43    0.0
+ 2       263.482     0.0544750    506 19:55:43    0.0
+ 3       263.520     0.0552057    506 19:55:43    0.0
+ 4       263.521     0.0552218    506 19:55:43    0.0
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 5 ):
+============================================================
+Model fitted using the gamma parameterization.
+ASReml 4.1.0 Sat May  9 19:55:43 2026
+          LogLik        Sigma2     DF     wall    cpu
+ 1       264.150     0.0549510    506 19:55:43    0.0
+ 2       264.326     0.0550634    506 19:55:43    0.0
+ 3       264.402     0.0553192    506 19:55:43    0.0
+ 4       264.416     0.0552745    506 19:55:43    0.0
+ 5       264.416     0.0552733    506 19:55:43    0.0

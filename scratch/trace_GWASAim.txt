@@ -1,0 +1,84 @@
+
+GWAS significance threshold (TypeI): 0.0500  (500 markers in panel)
+
+Random Effects Interval/Marker Model Iteration (1):
+============================================
+Model fitted using the gamma parameterization.
+ASReml 4.1.0 Sat May  9 21:03:30 2026
+          LogLik        Sigma2     DF     wall    cpu
+ 1      -310.615      0.877141    598 21:03:30    0.1
+ 2      -301.869      0.789778    598 21:03:30    0.0
+ 3      -294.465      0.704741    598 21:03:30    0.0
+ 4      -291.489      0.656685    598 21:03:30    0.0
+ 5      -290.971      0.635925    598 21:03:30    0.0
+ 6      -290.966      0.634047    598 21:03:30    0.0
+ Predict step for outlier statistics 
+=====================================
+Model fitted using the gamma parameterization.
+ASReml 4.1.0 Sat May  9 21:03:30 2026
+          LogLik        Sigma2     DF     wall    cpu
+ 1      -290.966      0.634025    598 21:03:30    0.1
+ 2      -290.966      0.634025    598 21:03:30    0.0
+ 3      -290.966      0.634025    598 21:03:30    0.0
+
+Fixed Effects QTL Model Iteration ( 1 ):
+========================================
+Model fitted using the gamma parameterization.
+ASReml 4.1.0 Sat May  9 21:03:30 2026
+          LogLik        Sigma2     DF     wall    cpu
+ 1      -245.499      0.517900    597 21:03:30    0.0
+ 2      -241.007      0.553148    597 21:03:30    0.0
+ 3      -238.227      0.600842    597 21:03:30    0.0
+ 4      -237.791      0.626560    597 21:03:30    0.0
+ 5      -237.770      0.634118    597 21:03:30    0.0
+ 6      -237.770      0.634025    597 21:03:30    0.0
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 1 ):
+============================================================
+Model fitted using the gamma parameterization.
+ASReml 4.1.0 Sat May  9 21:03:30 2026
+          LogLik        Sigma2     DF     wall    cpu
+ 1      -241.051      0.534004    597 21:03:31    0.0
+ 2      -236.219      0.565936    597 21:03:31    0.0
+ 3      -233.637      0.607145    597 21:03:31    0.0
+ 4      -233.313      0.627958    597 21:03:31    0.0
+ 5      -233.298      0.634091    597 21:03:31    0.0
+ 6      -233.298      0.634025    597 21:03:31    0.0
+ Predict step for outlier statistics 
+=====================================
+Model fitted using the gamma parameterization.
+ASReml 4.1.0 Sat May  9 21:03:31 2026
+          LogLik        Sigma2     DF     wall    cpu
+ 1      -233.298      0.634025    597 21:03:31    0.1
+ 2      -233.298      0.634025    597 21:03:31    0.0
+ 3      -233.298      0.634025    597 21:03:31    0.0
+
+Fixed Effects QTL Model Iteration ( 2 ):
+========================================
+Model fitted using the gamma parameterization.
+ASReml 4.1.0 Sat May  9 21:03:31 2026
+          LogLik        Sigma2     DF     wall    cpu
+ 1      -198.053      0.550958    596 21:03:31    0.0
+ 2      -196.118      0.576245    596 21:03:31    0.0
+ 3      -194.843      0.609577    596 21:03:31    0.0
+ 4      -194.602      0.635144    596 21:03:31    0.0
+ 5      -194.601      0.634027    596 21:03:31    0.0
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 2 ):
+============================================================
+Model fitted using the gamma parameterization.
+ASReml 4.1.0 Sat May  9 21:03:31 2026
+          LogLik        Sigma2     DF     wall    cpu
+ 1      -200.211      0.563986    596 21:03:31    0.0
+ 2      -196.480      0.587540    596 21:03:31    0.0
+ 3      -194.650      0.616358    596 21:03:31    0.0
+ 4      -194.462      0.634951    596 21:03:31    0.0
+ 5      -194.460      0.634036    596 21:03:31    0.0
+ Predict step for outlier statistics 
+=====================================
+Model fitted using the gamma parameterization.
+ASReml 4.1.0 Sat May  9 21:03:31 2026
+          LogLik        Sigma2     DF     wall    cpu
+ 1      -194.460      0.634025    596 21:03:31    0.1
+ 2      -194.460      0.634025    596 21:03:31    0.0
+ 3      -194.460      0.634025    596 21:03:31    0.0

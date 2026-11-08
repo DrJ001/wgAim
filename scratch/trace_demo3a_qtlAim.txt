@@ -1,0 +1,53 @@
+
+Random Effects Interval/Marker Model Iteration (1):
+============================================
+===================================================
+===================================================
+ Predict step for outlier statistics 
+=====================================
+
+Fixed Effects QTL Model Iteration ( 1 ):
+========================================
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 1 ):
+============================================================
+ Predict step for outlier statistics 
+=====================================
+
+Fixed Effects QTL Model Iteration ( 2 ):
+========================================
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 2 ):
+============================================================
+ Predict step for outlier statistics 
+=====================================
+
+Fixed Effects QTL Model Iteration ( 3 ):
+========================================
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 3 ):
+============================================================
+ Predict step for outlier statistics 
+=====================================
+
+Fixed Effects QTL Model Iteration ( 4 ):
+========================================
+
+Fixed Effects QTL plus Interval/Marker Model Iteration ( 4 ):
+============================================================
+ Predict step for outlier statistics 
+=====================================
+
+Wald Test: Pruning Trait x QTL interaction terms:
+==================================================
+                                                                                                                                                                 Wald Statistic
+Trial_Trial2:X.Chr1.20:Trial_Trial3:X.Chr1.20:Trial_Trial4:X.Chr1.20:Trial_Trial5:X.Chr1.20:Trial_Trial6:X.Chr1.20:Trial_Trial7:X.Chr1.20:Trial_Trial8:X.Chr1.20       6.404392
+Trial_Trial2:X.Chr2.55:Trial_Trial3:X.Chr2.55:Trial_Trial4:X.Chr2.55:Trial_Trial5:X.Chr2.55:Trial_Trial6:X.Chr2.55:Trial_Trial7:X.Chr2.55:Trial_Trial8:X.Chr2.55       7.901690
+Trial_Trial2:X.Chr4.60:Trial_Trial3:X.Chr4.60:Trial_Trial4:X.Chr4.60:Trial_Trial5:X.Chr4.60:Trial_Trial6:X.Chr4.60:Trial_Trial7:X.Chr4.60:Trial_Trial8:X.Chr4.60     406.504871
+Trial_Trial2:X.Chr3.27:Trial_Trial3:X.Chr3.27:Trial_Trial4:X.Chr3.27:Trial_Trial5:X.Chr3.27:Trial_Trial6:X.Chr3.27:Trial_Trial7:X.Chr3.27:Trial_Trial8:X.Chr3.27     144.788144
+                                                                                                                                                                  P-Value
+Trial_Trial2:X.Chr1.20:Trial_Trial3:X.Chr1.20:Trial_Trial4:X.Chr1.20:Trial_Trial5:X.Chr1.20:Trial_Trial6:X.Chr1.20:Trial_Trial7:X.Chr1.20:Trial_Trial8:X.Chr1.20 0.493401
+Trial_Trial2:X.Chr2.55:Trial_Trial3:X.Chr2.55:Trial_Trial4:X.Chr2.55:Trial_Trial5:X.Chr2.55:Trial_Trial6:X.Chr2.55:Trial_Trial7:X.Chr2.55:Trial_Trial8:X.Chr2.55 0.341343
+Trial_Trial2:X.Chr4.60:Trial_Trial3:X.Chr4.60:Trial_Trial4:X.Chr4.60:Trial_Trial5:X.Chr4.60:Trial_Trial6:X.Chr4.60:Trial_Trial7:X.Chr4.60:Trial_Trial8:X.Chr4.60 0.000000
+Trial_Trial2:X.Chr3.27:Trial_Trial3:X.Chr3.27:Trial_Trial4:X.Chr3.27:Trial_Trial5:X.Chr3.27:Trial_Trial6:X.Chr3.27:Trial_Trial7:X.Chr3.27:Trial_Trial8:X.Chr3.27 0.000000
+

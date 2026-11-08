@@ -1,0 +1,12 @@
+
+mbf path: fitting marker effects directly (200 lines >= 80 markers)...
+Fitting Genomic Prediction model...
+Model fitted using the gamma parameterization.
+ASReml 4.1.0 Sat May  9 22:02:57 2026
+          LogLik        Sigma2     DF     wall    cpu
+ 1       21.1666      0.182190    398 22:02:57    0.0
+ 2       35.4926      0.199897    398 22:02:57    0.0
+ 3       36.5266      0.206435    398 22:02:57    0.0
+ 4       36.6401      0.210122    398 22:02:57    0.0
+ 5       36.6412      0.209785    398 22:02:57    0.0
+Extracting GEBVs...

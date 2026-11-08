@@ -5,7 +5,21 @@ intro.bib.bak
 .Rhistory
 *.Rproj
 Rplots.pdf
-scratch/
+# scratch/ is tracked in git (it is excluded from the package build via
+# .Rbuildignore), EXCEPT the following, which must never be published:
+#   - the local test install of the package (compiled binaries)
+scratch/rlib/
+#   - third-party licensed software / copyrighted documents
+scratch/**/*.zip
+scratch/**/*.pdf
+#   - data and R workspace images (may contain colleagues' data)
+scratch/Beata/
+scratch/**/*.RData
+scratch/**/*.Rdata
+scratch/**/*.rda
+#   - editor autosave files
+scratch/**/*.R#
+scratch/**/*#
 src/*.o
 src/*.dll
 src/*.so

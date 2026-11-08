@@ -1,0 +1,19 @@
+
+vm path: building relationship matrix (300 markers > 200 lines)...
+Fitting Genomic Prediction model...
+Model fitted using the gamma parameterization.
+ASReml 4.1.0 Sat May  9 22:09:58 2026
+          LogLik        Sigma2     DF     wall    cpu
+ 1      -11.8872      0.348673    398 22:09:58    0.0
+ 2        0.0866      0.301388    398 22:09:58    0.0
+ 3       10.8914      0.252060    398 22:09:58    0.0
+ 4       15.3859      0.220416    398 22:09:58    0.0
+ 5       16.1586      0.205346    398 22:09:58    0.0
+ 6       16.1648      0.203945    398 22:09:58    0.0
+Extracting GEBVs...
+Model fitted using the gamma parameterization.
+ASReml 4.1.0 Sat May  9 22:09:58 2026
+          LogLik        Sigma2     DF     wall    cpu
+ 1       16.1648      0.203959    398 22:09:58    0.1
+ 2       16.1648      0.203959    398 22:09:58    0.0
+ 3       16.1648      0.203958    398 22:09:58    0.0

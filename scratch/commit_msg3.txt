@@ -1,0 +1,37 @@
+fix: correct multivariate genome-wide formula term order
+
+The correct ASReml-R formula for a multi-environment model is:
+  ~ diag(Trait):vm(merge.by, covObj)  (composite additive G x E)
+  + diag(Trait):merge.by             (residual polygenic G x E)
+
+NOT the previous (incorrect) suffix order:
+  ~ vm(merge.by, covObj):diag(Trait) + merge.by
+
+Changes:
+  R/engine_model.R
+    .buildGenomeModel(): trait.suffix -> trait.prefix; Trait structure
+      is now prepended (diag(Trait):vm() not vm():diag()); residual
+      vmterms[2] becomes diag(Trait):merge.by (not bare merge.by)
+    fa upgrade: sub() with explicit diag(Trait) pattern instead of
+      broken gsub("\\)$", ...) which targeted the wrong closing paren
+    .rebuildCovObj(): extract prefix from vm term (not suffix); use
+      vmterms[2L] in rebuilt formula (preserves diag(Trait):merge.by)
+
+  R/engine_select.R
+    .qtlSelect() vm multivariate path: classify = "merge.by:Trait"
+      (direct, no string manipulation); only = vmterm.raw as-is
+
+  tests/testthat/test-multivariate.R
+    4 new .buildGenomeModel tests verifying diag prefix order and
+    vmterms[2] content; section numbering updated (6->7 etc.)
+
+Also:
+  scratch/demo_multivariate.R
+    Fixed incorrect IMPORTANT note about formula structure
+    Simulation: 200 lines 15 markers/chr -> 100 lines 30 markers/chr
+    (116 intervals > 100 lines, ensuring vm() path is used)
+    Added markers > lines explanation
+
+Tests: 596 passing, 0 failures (7 skipped: ASReml licence)
+
+Co-Authored-By: eca-agent <git@eca.dev>

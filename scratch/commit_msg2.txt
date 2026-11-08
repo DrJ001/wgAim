@@ -1,0 +1,27 @@
+test: add multivariate test suite (62 tests) + fix .packResults API
+
+New file:
+  tests/testthat/test-multivariate.R  -- 62 tests covering:
+    pchisq.mixture, qchisq.mixture, .compute_vqtilde,
+    .lrtTest(ntrait>1), .addEffect(Trait), .packResults(Trait),
+    qtlAim/gwasAim Trait guard clauses, summary Env column,
+    waldTest zero-equality path
+
+Bug fixes found during test development:
+  R/engine_model.R    -- .rebuildCovObj: fix formula construction
+                         (grep "^vm(" not "in vmterms" to find vm term)
+  R/engine_results.R  -- .packResults: add trait.levels parameter;
+                         remove attempt to index qtlModel$call$data
+  R/qtlAim.R          -- pass trait.levels to .packResults
+  R/gwasAim.R         -- pass trait.levels to .packResults
+  R/summary.qtlAim.R  -- move multivariate decomposition block before
+                         perc.var computation; per-QTL perc.var broadcast
+  R/summary.gwasAim.R -- same ordering fix + per-QTL perc.var broadcast
+  tests/testthat/test-engine.R         -- unwrap $qtl.list from .packResults
+  tests/testthat/test-engine-asreml.R  -- add ... to .lrtTest mock
+
+NAMESPACE + man/ updated via devtools::document()
+
+Tests: 588 passing, 0 failures (7 skipped: ASReml licence required)
+
+Co-Authored-By: eca-agent <git@eca.dev>

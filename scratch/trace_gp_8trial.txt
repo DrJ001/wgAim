@@ -1,0 +1,7 @@
+Fitting Genomic Prediction model...
+
+Random Effects Interval/Marker Model Iteration (1):
+============================================
+===================================================
+===================================================
+Extracting GEBVs...

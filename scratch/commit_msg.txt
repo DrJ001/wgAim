@@ -1,0 +1,26 @@
+Add research prototype for an AOM-based forward-selection stopping rule
+
+A colleague's multi-trial gwasAim() run showed the LRT statistic rising as
+markers were selected. The LRT tests whether K-structured polygenic
+variance exists, which is always true with a strong background, so it
+cannot act as a stopping rule (and with weak background it can stop too
+early).
+
+This adds a standalone research prototype (no package code changed) of a
+stopping rule based on the alternative outlier model (AOM): the outlier
+statistic is the REML score test that the best marker is exceptional
+relative to the polygenic background, with an exact family-wise null for
+the maximum obtained by simulating the marker BLUPs (no refitting).
+
+research/aom_stopping/ (excluded from the build via .Rbuildignore):
+- aom_null_diag.R: diagnostic for vm/mbf, UV/MV, marker and chromosome
+  statistics (Imhof p-values, Bonferroni, simulated max-stat null)
+- run_*.R / summ_*.R: pilot, Stage 0 (reproduces package oint on all
+  engine paths) and Stage 1 (null calibration, 2,600 replicates:
+  0.2-4.2% at nominal 5%, conservative) scripts, with results/
+- aom_stopping_rule.qmd/.html: mathematical write-up
+- selection_summary.md: findings, files and next steps
+
+Generated with [ECA](https://eca.dev)
+
+Co-Authored-By: eca-agent <git@eca.dev>

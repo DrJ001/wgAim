@@ -1,0 +1,15 @@
+
+GWAS significance threshold (TypeI): 0.0500  (1000 markers in panel)
+
+Random Effects Interval/Marker Model Iteration (1):
+============================================
+  WARNING in Demo 3b — gwasAim eight trials : Log-likelihood not converged 
+  WARNING in Demo 3b — gwasAim eight trials : Some components changed by more than 1% on the last iteration. 
+===================================================
+  WARNING in Demo 3b — gwasAim eight trials : Log-likelihood not converged 
+  WARNING in Demo 3b — gwasAim eight trials : Some components changed by more than 1% on the last iteration. 
+===================================================
+  WARNING in Demo 3b — gwasAim eight trials : Log-likelihood not converged 
+  WARNING in Demo 3b — gwasAim eight trials : Some components changed by more than 1% on the last iteration. 
+ Predict step for outlier statistics 
+=====================================
