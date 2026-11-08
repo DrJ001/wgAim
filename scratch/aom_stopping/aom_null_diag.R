@@ -1,10 +1,10 @@
 # =============================================================================
-# research/aom_stopping/aom_null_diag.R
+# scratch/aom_stopping/aom_null_diag.R
 #
 # STANDALONE DIAGNOSTIC -- not part of the package.  Nothing in R/ calls this.
 #
 # Null distribution of the AOM outlier statistic, as a candidate stopping rule.
-# See research/aom_stopping/aom_stopping_rule.qmd for the mathematics.
+# See scratch/aom_stopping/aom_stopping_rule.qmd for the mathematics.
 #
 # Under the AOM null for marker j (its effect is just another draw from the
 # polygenic distribution), treating the variance parameters as known, the

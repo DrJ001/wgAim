@@ -1,5 +1,5 @@
-# Summarise Stage 1 null calibration (research/aom_stopping/stage1/*.csv).
-files <- list.files("research/aom_stopping/results/stage1", "\\.csv$", full.names = TRUE)
+# Summarise Stage 1 null calibration (scratch/aom_stopping/stage1/*.csv).
+files <- list.files("scratch/aom_stopping/results/stage1", "\\.csv$", full.names = TRUE)
 alpha <- 0.05
 ci <- function(x) {
     x <- x[!is.na(x)]; k <- sum(x); n <- length(x)

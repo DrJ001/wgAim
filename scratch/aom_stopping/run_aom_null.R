@@ -1,15 +1,15 @@
 # =============================================================================
-# research/aom_stopping/run_aom_null.R
+# scratch/aom_stopping/run_aom_null.R
 #
 # Null simulation for the AOM stopping rule: NO planted QTL.
 # Phenotypes = K-structured polygenic background (Ga_K x kscale) + IID line
 # effects + residual.  Under this global null the family-wise error rate of
 # the proposed procedure is P(step 1 rejects), so each replicate runs one
 # iteration of gwasAim() (breakout = 1) with the standalone diagnostic
-# (research/aom_stopping/aom_null_diag.R) attached to .qtlSelect for this session only.
+# (scratch/aom_stopping/aom_null_diag.R) attached to .qtlSelect for this session only.
 #
-# Run: Rscript research/aom_stopping/run_aom_null.R [kscale] [nrep] [first.seed] [struct]
-# Output: research/aom_stopping/aom_null_k<kscale>.csv (appended per replicate)
+# Run: Rscript scratch/aom_stopping/run_aom_null.R [kscale] [nrep] [first.seed] [struct]
+# Output: scratch/aom_stopping/aom_null_k<kscale>.csv (appended per replicate)
 # =============================================================================
 args   <- commandArgs(trailingOnly = TRUE)
 kscale <- if (length(args) >= 1L) as.numeric(args[1L]) else 1
@@ -17,11 +17,11 @@ nrep   <- if (length(args) >= 2L) as.integer(args[2L]) else 20L
 seed0  <- if (length(args) >= 3L) as.integer(args[3L]) else 1001L
 struct <- if (length(args) >= 4L) args[4L] else "us"
 n.t    <- 3L
-out.csv <- sprintf("research/aom_stopping/results/aom_null_k%s.csv", kscale)
+out.csv <- sprintf("scratch/aom_stopping/results/aom_null_k%s.csv", kscale)
 
 .libPaths(c("scratch/rlib", .libPaths()))
 suppressPackageStartupMessages({ library(asreml); library(wgAim) })
-source("research/aom_stopping/aom_null_diag.R")
+source("scratch/aom_stopping/aom_null_diag.R")
 
 data(genoGWASraw, package = "wgAim"); data(mapGWASsim, package = "wgAim")
 flt   <- suppressMessages(filterPanel(genoGWASraw, mapGWASsim, id = "id",

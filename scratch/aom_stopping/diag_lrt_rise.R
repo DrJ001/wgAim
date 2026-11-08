@@ -1,5 +1,5 @@
 # =============================================================================
-# research/aom_stopping/diag_lrt_rise.R
+# scratch/aom_stopping/diag_lrt_rise.R
 #
 # Why does the MV LRT statistic RISE after the true QTL are fitted?
 # Wraps wgAim:::.buildLRTModels to record, at every LRT step:
@@ -9,7 +9,7 @@
 #   L1.more   : qtlForLRT continued with extra iterations (maxit = 100)
 #   L0.more   : baseForLRT continued with extra iterations
 #
-# Run: Rscript research/aom_stopping/diag_lrt_rise.R [corgh|us] [n.trials]
+# Run: Rscript scratch/aom_stopping/diag_lrt_rise.R [corgh|us] [n.trials]
 # =============================================================================
 args   <- commandArgs(trailingOnly = TRUE)
 struct <- if (length(args) >= 1L) args[1L] else "corgh"

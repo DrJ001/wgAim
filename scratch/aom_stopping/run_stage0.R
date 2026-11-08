@@ -1,8 +1,8 @@
 # =============================================================================
-# research/aom_stopping/run_stage0.R
+# scratch/aom_stopping/run_stage0.R
 #
 # Stage 0 verification: does the standalone AOM diagnostic
-# (research/aom_stopping/aom_null_diag.R) reproduce the package's outlier statistics on
+# (scratch/aom_stopping/aom_null_diag.R) reproduce the package's outlier statistics on
 # every engine path?  One selection step per case (breakout = 1,
 # TypeI = 0.999).  Diagnostic attached to wgAim:::.qtlSelect for this R
 # session only; package code unchanged.
@@ -11,14 +11,14 @@
 #        qtlAim   interval UV/MV x vm/mbf(force), selection = "chromosome"
 #                 UV/MV, gen.type = "marker" UV
 #
-# Run: Rscript research/aom_stopping/run_stage0.R [B]
+# Run: Rscript scratch/aom_stopping/run_stage0.R [B]
 # =============================================================================
 args <- commandArgs(trailingOnly = TRUE)
 B    <- if (length(args) >= 1L) as.integer(args[1L]) else 1000L
 
 .libPaths(c("scratch/rlib", .libPaths()))
 suppressPackageStartupMessages({ library(asreml); library(wgAim) })
-source("research/aom_stopping/aom_null_diag.R")
+source("scratch/aom_stopping/aom_null_diag.R")
 
 # ---- attach diagnostic ------------------------------------------------------
 ns   <- asNamespace("wgAim")
@@ -130,7 +130,7 @@ run_case <- function(label, fun) {
 
 # =============================================================================
 # GWAS data: shipped panel + simulated 3-trial phenotypes (planted QTL, strong
-# background, 9 ungenotyped lines) -- as in research/aom_stopping/run_aom_diag.R
+# background, 9 ungenotyped lines) -- as in scratch/aom_stopping/run_aom_diag.R
 # =============================================================================
 data(genoGWASraw, package = "wgAim"); data(mapGWASsim, package = "wgAim")
 flt   <- suppressMessages(filterPanel(genoGWASraw, mapGWASsim, id = "id",
@@ -236,4 +236,4 @@ R <- do.call(rbind, lapply(results, function(r) {
     r[setdiff(full, names(r))] <- NA; r[full] }))
 cat("\n\n==== STAGE 0 SUMMARY (B =", B, ") ====\n")
 print(R, row.names = FALSE)
-saveRDS(R, "research/aom_stopping/results/stage0_results.rds")
+saveRDS(R, "scratch/aom_stopping/results/stage0_results.rds")

@@ -1,4 +1,4 @@
-source("research/aom_stopping/aom_null_diag.R")
+source("scratch/aom_stopping/aom_null_diag.R")
 set.seed(1)
 for (L in list(c(.5, .3, .2), c(.9, .05, .05), c(1/3, 1/3, 1/3)))
     for (x in c(2, 5, 10, 15)) {

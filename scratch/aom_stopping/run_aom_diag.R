@@ -1,15 +1,15 @@
 # =============================================================================
-# research/aom_stopping/run_aom_diag.R
+# scratch/aom_stopping/run_aom_diag.R
 #
 # Runs gwasAim() on the simulated 3-trial data with the standalone AOM-null
-# diagnostic (research/aom_stopping/aom_null_diag.R) attached to wgAim:::.qtlSelect for this
+# diagnostic (scratch/aom_stopping/aom_null_diag.R) attached to wgAim:::.qtlSelect for this
 # R session only.  Package code is NOT modified; selection is unchanged.
 #
 # TypeI = 0.999 so the LRT never stops the loop; breakout = 8.  For each
 # iteration we report the LRT and the AOM-based rules side by side, so we can
 # see where each WOULD have stopped.
 #
-# Run: Rscript research/aom_stopping/run_aom_diag.R [us|corgh|...] [n.trials] [Ga_K scale] [breakout]
+# Run: Rscript scratch/aom_stopping/run_aom_diag.R [us|corgh|...] [n.trials] [Ga_K scale] [breakout]
 # =============================================================================
 args   <- commandArgs(trailingOnly = TRUE)
 struct <- if (length(args) >= 1L) args[1L] else "us"
@@ -20,7 +20,7 @@ cat("struct:", struct, " trials:", n.t, " Ga_K scale:", kscale, " breakout:", br
 
 .libPaths(c("scratch/rlib", .libPaths()))
 suppressPackageStartupMessages({ library(asreml); library(wgAim) })
-source("research/aom_stopping/aom_null_diag.R")
+source("scratch/aom_stopping/aom_null_diag.R")
 
 # ---- data: identical to repro_corgh_3trial.R / diag_lrt_rise.R -------------
 data(genoGWASraw, package = "wgAim"); data(mapGWASsim, package = "wgAim")
@@ -118,4 +118,4 @@ print(rep, row.names = FALSE)
 cat("\nLRT after final iteration:", round(lik[nrow(lik), "Statistic"], 2),
     " p =", signif(lik[nrow(lik), "Pvalue"], 3), "\n")
 saveRDS(list(rep = rep, A = A, lik = lik),
-        sprintf("research/aom_stopping/results/aom_diag_%s_%dt_k%s.rds", struct, n.t, kscale))
+        sprintf("scratch/aom_stopping/results/aom_diag_%s_%dt_k%s.rds", struct, n.t, kscale))

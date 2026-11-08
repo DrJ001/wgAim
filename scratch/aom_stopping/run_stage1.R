@@ -1,5 +1,5 @@
 # =============================================================================
-# research/aom_stopping/run_stage1.R
+# scratch/aom_stopping/run_stage1.R
 #
 # STAGE 1: null calibration of the AOM stopping rule.  NO planted QTL.
 # Phenotypes = K-structured polygenic background (Ga_K x kscale, K from the
@@ -7,7 +7,7 @@
 #
 # Under this global null the family-wise error rate of the proposed rule is
 # P(step 1 rejects), so each replicate runs ONE selection step (breakout = 1)
-# with the standalone diagnostic (research/aom_stopping/aom_null_diag.R) attached to
+# with the standalone diagnostic (scratch/aom_stopping/aom_null_diag.R) attached to
 # wgAim:::.qtlSelect for this session only.  Package code is not modified.
 #
 #   pop = "gwas" : shipped GWAS panel (191 lines, 1501 markers) + 9
@@ -19,8 +19,8 @@
 # AOM rule is evaluated in every replicate; the initial LRT p-value is
 # recorded so the full procedure (LRT gate at 0.05 AND AOM) can be assessed.
 #
-# Run : Rscript research/aom_stopping/run_stage1.R <pop> <ntrait> <kscale> <nrep> <seed0> [struct] [B]
-# Out : research/aom_stopping/stage1/<pop>_t<ntrait>_k<kscale>.csv   (appended per replicate)
+# Run : Rscript scratch/aom_stopping/run_stage1.R <pop> <ntrait> <kscale> <nrep> <seed0> [struct] [B]
+# Out : scratch/aom_stopping/stage1/<pop>_t<ntrait>_k<kscale>.csv   (appended per replicate)
 # =============================================================================
 args   <- commandArgs(trailingOnly = TRUE)
 pop    <- args[1L]
@@ -32,13 +32,13 @@ struct <- if (length(args) >= 6L) args[6L] else "us"
 B      <- if (length(args) >= 7L) as.integer(args[7L]) else 1000L
 stopifnot(pop %in% c("gwas", "dh"), n.t %in% c(1L, 3L))
 
-out.dir <- "research/aom_stopping/results/stage1"
+out.dir <- "scratch/aom_stopping/results/stage1"
 dir.create(out.dir, showWarnings = FALSE)
 out.csv <- file.path(out.dir, sprintf("%s_t%d_k%s.csv", pop, n.t, kscale))
 
 .libPaths(c("scratch/rlib", .libPaths()))
 suppressPackageStartupMessages({ library(asreml); library(wgAim) })
-source("research/aom_stopping/aom_null_diag.R")
+source("scratch/aom_stopping/aom_null_diag.R")
 
 # ---- genotypes ---------------------------------------------------------------
 if (pop == "gwas") {

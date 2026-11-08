@@ -1,11 +1,11 @@
 # wgAim — AOM-based Stopping Rule for Forward Selection
 
 *Working notes, started Session 39 — 2026-11-07/08.*
-*Main project reference: [session_summary.md](../../scratch/session_summary.md) (local working file in the git-ignored `scratch/` folder, so not on GitHub). Maths write-up: [aom_stopping_rule.qmd](aom_stopping_rule.qmd) (rendered: [aom_stopping_rule.html](aom_stopping_rule.html)).*
+*Main project reference: [session_summary.md](../session_summary.md). Maths write-up: [aom_stopping_rule.qmd](aom_stopping_rule.qmd) (rendered: [aom_stopping_rule.html](aom_stopping_rule.html)).*
 
-> **Status:** research prototype on branch `feature/aom-stopping-rule`. **No package code has been changed.** Everything lives in `research/aom_stopping/` (excluded from the package build via `.Rbuildignore`). The diagnostic is attached to `wgAim:::.qtlSelect()` for a single R session by the run scripts and leaves selection unchanged. Deleting this folder removes it completely.
+> **Status:** research prototype on branch `feature/aom-stopping-rule`. **No package code has been changed.** Everything lives in `scratch/aom_stopping/` (tracked in git; `scratch/` is excluded from the package build via `.Rbuildignore`). Run logs are in `logs/`, results in `results/`. The diagnostic is attached to `wgAim:::.qtlSelect()` for a single R session by the run scripts and leaves selection unchanged. Deleting this folder removes it completely.
 >
-> **Running the scripts:** from the repository root, e.g. `Rscript research/aom_stopping/run_stage1.R gwas 1 1 500 2001`. They need ASReml-R and an installed wgAim; `scratch/rlib` is put first on `.libPaths()` if present (the local test install). Results are written to `research/aom_stopping/results/`.
+> **Running the scripts:** from the repository root, e.g. `Rscript scratch/aom_stopping/run_stage1.R gwas 1 1 500 2001`. They need ASReml-R and an installed wgAim; `scratch/rlib` is put first on `.libPaths()` if present (the local test install). Results are written to `scratch/aom_stopping/results/`.
 
 ---
 
@@ -26,12 +26,12 @@ Five markers (2C, 4C, 6A, 6C, 7D) explained about 28% of the genetic variance in
 
 ## 2. Diagnosis of the LRT
 
-- **Reproduced** on simulated 3-trial `corgh` data with strong K-structured background (`research/aom_stopping/repro_corgh_3trial.R`): the LRT went 48.6 → 19.9 → 21.8 → 23.7 → 28.3.
-- **Not a convergence problem.** Both LRT models were refitted to full convergence and gave the same statistics to 3 d.p. (`research/aom_stopping/diag_lrt_rise.R`). The recurring "Log-likelihood not converged" warnings come from `predict(..., maxit = 1)` in `.qtlSelect()`, not from model fits.
+- **Reproduced** on simulated 3-trial `corgh` data with strong K-structured background (`scratch/repro_corgh_3trial.R`, Session 38): the LRT went 48.6 → 19.9 → 21.8 → 23.7 → 28.3.
+- **Not a convergence problem.** Both LRT models were refitted to full convergence and gave the same statistics to 3 d.p. (`scratch/aom_stopping/diag_lrt_rise.R`). The recurring "Log-likelihood not converged" warnings come from `predict(..., maxit = 1)` in `.qtlSelect()`, not from model fits.
 - **Not a built-in REML artefact.** Adding null markers to both models moved the LRT both ways (−3.8 to +1.6).
 - **What the LRT tests.** `L0` (no genome-wide term) is compared with `L1` (`diag(Trait):vm`), testing H₀: per-trial vm variances = 0, i.e. *does K-structured polygenic variance exist?* With a strong background that's always true, so the LRT never stops. Fitting large QTL (poorly aligned with K, otherwise absorbed by the IID line term) can even *raise* the statistic. With a weak background the LRT can stop too early: one simulation stopped after 1 of 3 planted QTL.
 - **How the LRT is run for `us`.** The vm term is fitted as `diag` at entry. After the entry LRT passes it is upgraded to `us`, which is used *only* for marker selection. At each iteration, `.buildLRTModels()` downgrades it back to `diag` and refits from default starting values (`G.param = NULL, R.param = NULL`). `L0` keeps `us(Trial):Gsave` plus the QTL fixed effects and is updated from previous estimates.
-- **`pchisq.mixture()` review** (`research/aom_stopping/chibar_weights.R`):
+- **`pchisq.mixture()` review** (`scratch/aom_stopping/chibar_weights.R`):
   - The binomial weights assume the per-trial variance estimators are uncorrelated. With correlation 0.3–0.6 the true size is about 5.5–6.3% at nominal 5%.
   - The Stram & Lee citation in the code is inappropriate; the correct reference is Self & Liang.
   - `pchisq(0, df = 0)` returns 0, a harmless edge case.
@@ -53,7 +53,7 @@ Keep the LRT as the **entry gate** (is there any genetic signal?). At each itera
 - **Fixed-effect entry is the limiting case** ψⱼ → ∞, so the forward procedure is a coherent step-down.
 - **Proposed procedure:** LRT entry gate → each iteration: select the best marker → p_FWE ≤ α? → add it as fixed and continue; otherwise stop. This could become an option such as `stop.rule = c("lrt", "outlier")`.
 
-## 4. Implementation (`research/aom_stopping/`)
+## 4. Implementation (`scratch/aom_stopping/`)
 
 | File | Purpose |
 |---|---|
@@ -64,7 +64,10 @@ Keep the LRT as the **entry gate** (is there any genetic signal?). At each itera
 | `bench_aom_scaling.R` | Scaling benchmark, no ASReml needed. |
 | `run_stage1.R` / `summ_stage1.R` | Stage 1 null calibration. Args: `<pop> <ntrait> <kscale> <nrep> <seed0> [struct] [B]`; output `results/stage1/*.csv`. |
 | `check_imhof.R` | Imhof vs Monte Carlo / exact checks. |
-| `aom_stopping_rule.qmd` / `.html` | Maths write-up. Render with `"C:\Program Files\RStudio\resources\app\bin\quarto\bin\quarto.exe" render research/aom_stopping/aom_stopping_rule.qmd` (Quarto isn't on the PATH). |
+| `diag_lrt_rise.R` | LRT-rise diagnosis: per-step L0/L1, full-convergence refits, null-marker experiment. |
+| `debug_stage1_dh3.R` | Debug of the qtlAim gate-stop case (`lik.mat = NULL`). |
+| `logs/` | Console logs of the pilot, Stage 0 and Stage 1 runs. |
+| `aom_stopping_rule.qmd` / `.html` | Maths write-up. Render with `"C:\Program Files\RStudio\resources\app\bin\quarto\bin\quarto.exe" render scratch/aom_stopping/aom_stopping_rule.qmd` (Quarto isn't on the PATH). |
 
 Practicalities:
 - Fit and evaluate in the **global environment**: `gwasAim`/`qtlAim` assign `covObj`/`phenoData` to their caller.

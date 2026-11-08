@@ -1,9 +1,9 @@
-# Summarise the null simulations (research/aom_stopping/aom_null_k*.csv).
+# Summarise the null simulations (scratch/aom_stopping/aom_null_k*.csv).
 # Weak background: seeds 1005, 1022, 1023, 1050 never reached selection because
 # the initial LRT statistic was <= 0 (p = 1 > TypeI = 0.999) -- gate stops,
 # i.e. no false positive.  They are added here as non-rejections.
 for (k in c("1", "0.05")) {
-    R <- read.csv(sprintf("research/aom_stopping/results/aom_null_k%s.csv", k))
+    R <- read.csv(sprintf("scratch/aom_stopping/results/aom_null_k%s.csv", k))
     R <- R[!duplicated(R$seed), ]
     n.gate <- if (k == "0.05") length(setdiff(c(1005, 1022, 1023, 1050), R$seed)) else 0L
     n  <- nrow(R) + n.gate

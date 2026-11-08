@@ -14,8 +14,8 @@ format:
 
 ::: {.callout-note}
 **Status.** Working notes. Nothing described in Section 4 onwards is part of the
-package. The diagnostic lives in `research/aom_stopping/aom_null_diag.R` and is attached to
-`wgAim:::.qtlSelect()` for a single R session by `research/aom_stopping/run_aom_diag.R`;
+package. The diagnostic lives in `scratch/aom_stopping/aom_null_diag.R` and is attached to
+`wgAim:::.qtlSelect()` for a single R session by `scratch/aom_stopping/run_aom_diag.R`;
 selection is unchanged.
 :::
 
