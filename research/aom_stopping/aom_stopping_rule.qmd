@@ -1,0 +1,442 @@
+---
+title: "An AOM-based stopping rule for forward selection in wgAim"
+subtitle: "Mathematical notes and simulation evidence (working document)"
+date: 2026-11-06
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    html-math-method: mathjax
+    embed-resources: true
+    theme: flatly
+---
+
+::: {.callout-note}
+**Status.** Working notes. Nothing described in Section 4 onwards is part of the
+package. The diagnostic lives in `research/aom_stopping/aom_null_diag.R` and is attached to
+`wgAim:::.qtlSelect()` for a single R session by `research/aom_stopping/run_aom_diag.R`;
+selection is unchanged.
+:::
+
+# Motivation
+
+In `gwasAim()` / `qtlAim()` forward selection continues while a likelihood
+ratio test (LRT) of the genome-wide additive (marker-based) variance remains
+significant. On a colleague's three-trial oat data set (11,991 markers) the LRT
+statistic *increased* steadily as markers were selected
+(150.1 → 156.2 → 160.9 → 164.7 → 167.8 → 173.5), even though the selected
+markers were sensible. Five markers explained about 28% of the genetic
+variance; the remainder is polygenic background.
+
+The LRT tests whether *any* K-structured genetic variance remains. With a
+strong polygenic background the answer is always yes, so the LRT cannot act as
+a stopping rule. The question we want answered at each step is different: *is
+the best remaining marker exceptional relative to that background?* The
+alternative outlier model (AOM) statistic that drives selection already asks
+this, and its null distribution is available in closed form.
+
+# Model and notation
+
+Let there be $n$ genotyped lines, $m$ markers and $t$ trials (traits;
+$t = 1$ is the univariate case). Let $\mathbf{M}$ ($n \times m$) be the marker
+score matrix (coded $-1/0/1$) of the markers still in the genome-wide term
+(markers in the exclusion windows of already-selected QTL are removed).
+
+## Genome-wide marker term
+
+Write the vector of marker effects for trial $k$ as $\mathbf{a}_k$ and stack
+them trait-major, $\mathbf{a} = (\mathbf{a}_1^\top, \ldots, \mathbf{a}_t^\top)^\top$.
+The working model for the genome-wide term is
+
+$$
+\mathbf{a} \sim N\!\left(\mathbf{0},\; \tfrac{1}{s}\,\mathbf{G}_a \otimes \mathbf{I}_m\right),
+$$
+
+with $\mathbf{G}_a$ the $t \times t$ additive genetic covariance matrix between
+trials (structure `diag`, `corh`, `corgh`, `us` or `fa(k)`), and $s$ a scaling
+constant. The line-level genomic values are $\mathbf{g}_k = \mathbf{M}\mathbf{a}_k$,
+so
+
+$$
+\mathbf{g} = (\mathbf{I}_t \otimes \mathbf{M})\,\mathbf{a}
+\sim N(\mathbf{0},\; \mathbf{G}_a \otimes \mathbf{K}),
+\qquad
+\mathbf{K} = \tfrac{1}{s}\mathbf{M}\mathbf{M}^\top,
+\quad s = \overline{\operatorname{diag}(\mathbf{M}\mathbf{M}^\top)} .
+$$
+
+This is the `vm(id, K)` term in ASReml (after the structure prefix). The full
+linear mixed model is
+
+$$
+\mathbf{y} = \mathbf{X}\boldsymbol{\tau}
+ + \mathbf{Z}_g\,\mathbf{g}
+ + \mathbf{Z}_r\,\mathbf{u}_r
+ + \mathbf{Z}_o\,\mathbf{u}_o
+ + \mathbf{e},
+$$
+
+where $\mathbf{X}\boldsymbol{\tau}$ contains the fixed effects (including the
+selected markers, fitted as $X_j + \text{Trial}{:}X_j$), $\mathbf{u}_r$ is the
+residual (non-K) genetic line effect with structure e.g. `us(Trial):id`,
+$\mathbf{u}_o$ collects any other random terms and $\mathbf{e}$ is the
+residual.
+
+## From line BLUPs to marker BLUPs
+
+Given $\mathbf{g}_k$, the conditional mean of $\mathbf{a}_k$ is
+
+$$
+\operatorname{E}(\mathbf{a}_k \mid \mathbf{g}_k)
+= \tfrac{1}{s}\mathbf{M}^\top \mathbf{K}^{-1}\mathbf{g}_k
+= \mathbf{T}\,\mathbf{g}_k,
+\qquad
+\mathbf{T} = \tfrac{1}{s}\mathbf{M}^\top\mathbf{K}^{-1}
+\quad (m \times n),
+$$
+
+which is `cov.env$trans` in `.constructCM()`. Hence the marker BLUPs are a
+linear map of the line BLUPs $\tilde{\mathbf{g}}$ returned by
+`predict(..., only = <vm term>)`:
+
+$$
+\tilde{\mathbf{q}}_k = \mathbf{T}\,\tilde{\mathbf{g}}_k,
+\qquad
+\tilde{\mathbf{q}}_j = (\tilde q_{j1}, \ldots, \tilde q_{jt})^\top
+\text{ for marker } j .
+$$
+
+## Variance of the BLUPs
+
+With $\mathbf{C} = \operatorname{var}(\tilde{\mathbf{g}} - \mathbf{g})$ the
+prediction error variance (PEV) matrix, the BLUPs have variance
+
+$$
+\mathbf{V}_g \;=\; \operatorname{var}(\tilde{\mathbf{g}})
+\;=\; \mathbf{G}_a \otimes \mathbf{K} - \mathbf{C}
+\qquad (nt \times nt),
+$$
+
+(`vatilde` in `.qtlSelect()`). For marker $j$, with
+$\boldsymbol{\tau}_j^\top$ the $j$th row of $\mathbf{T}$, the
+$t \times t$ BLUP variance is
+
+$$
+\mathbf{V}_j \;=\; \operatorname{var}(\tilde{\mathbf{q}}_j)
+\;=\; (\mathbf{I}_t \otimes \boldsymbol{\tau}_j^\top)\,
+      \mathbf{V}_g\,
+      (\mathbf{I}_t \otimes \boldsymbol{\tau}_j),
+\qquad
+[\mathbf{V}_j]_{kl} = \boldsymbol{\tau}_j^\top\,[\mathbf{V}_g]_{kl}\,\boldsymbol{\tau}_j ,
+$$
+
+where $[\mathbf{V}_g]_{kl}$ is the $(k,l)$ $n \times n$ block. The package
+currently computes only $\operatorname{tr}(\mathbf{G}_a^{-}\mathbf{V}_j)$
+(`compute_vqtilde()`); the diagnostic computes the full block.
+
+For the `mbf` path the same algebra holds with $\mathbf{T} = \mathbf{M}^{+}$
+(Moore–Penrose inverse) and $\mathbf{K}$ replaced by $\mathbf{M}\mathbf{M}^\top$.
+
+# The current LRT and why it does not stop
+
+At each iteration the package compares
+
+* $L_0$: the model without the genome-wide term,
+* $L_1$: the same model plus `diag(Trial):vm(id, K)`,
+
+both with the same fixed effects (all selected markers) and the same residual
+genetic term. The statistic $\Lambda = 2(L_1 - L_0)$ tests
+
+$$
+H_0:\; \sigma^2_{a,1} = \cdots = \sigma^2_{a,t} = 0,
+$$
+
+the per-trial variances of the genome-wide term, with null distribution the
+boundary mixture $\sum_{k=0}^{t} \binom{t}{k} 2^{-t}\, \chi^2_k$
+(`pchisq.mixture()`). Downgrading the term to `diag` removes the covariance
+parameters, which are not identifiable under $H_0$.
+
+This is a test of *whether a polygenic background exists*, not of *whether
+another QTL exists*. Fitting a few large markers does not remove a background
+spread across thousands of markers. It can even increase $\Lambda$, because a
+large QTL that is poorly aligned with $\mathbf{K}$ is absorbed by the
+independent line term $\mathbf{u}_r$ and masks the K-structured signal; fitting
+it as a fixed effect removes that noise. So with a strong background the LRT
+never stops, and with a weak background it can stop before all real QTL are
+found (Section 7).
+
+# The AOM outlier statistic and its null distribution
+
+## The alternative outlier model
+
+For marker $j$, the alternative outlier model inflates the variance of that
+marker's effect only:
+
+$$
+\mathbf{a}_j \sim N\!\left(\mathbf{0},\; \tfrac{1}{s}\mathbf{G}_a + \boldsymbol{\Psi}_j\right),
+\qquad
+\mathbf{a}_{j'} \sim N\!\left(\mathbf{0},\; \tfrac{1}{s}\mathbf{G}_a\right)\; (j' \neq j).
+$$
+
+The null hypothesis for marker $j$ is
+
+$$
+H_{0j}:\; \boldsymbol{\Psi}_j = \mathbf{0},
+$$
+
+i.e. *marker $j$ is just another draw from the polygenic distribution*. It is
+**not** $\mathbf{a}_j = \mathbf{0}$. A marker that is significant against
+$H_{0j}$ is exceptional relative to the background, which is exactly what a
+stopping rule should require.
+
+Under $H_{0j}$, treating the variance parameters as known,
+$\tilde{\mathbf{q}}_j$ is Gaussian with mean zero and variance
+$\mathbf{V}_j$.
+
+## Univariate case ($t = 1$)
+
+The outlier statistic is
+
+$$
+O_j = \frac{\tilde q_j^{\,2}}{v_j},
+\qquad v_j = \boldsymbol{\tau}_j^\top \mathbf{V}_g \boldsymbol{\tau}_j ,
+$$
+
+and under $H_{0j}$
+
+$$
+O_j \sim \chi^2_1 \quad\text{exactly (given the variance parameters)}.
+$$
+
+## Multivariate case ($t > 1$)
+
+The statistic used in `.qtlSelect()` is
+
+$$
+O_j \;=\; \frac{\tilde{\mathbf{q}}_j^\top\,\mathbf{G}_a^{-}\,\tilde{\mathbf{q}}_j}
+              {\operatorname{tr}\!\left(\mathbf{G}_a^{-}\mathbf{V}_j\right)} ,
+$$
+
+with $\mathbf{G}_a^{-}$ the Moore–Penrose inverse. Since
+$\operatorname{E}(\tilde{\mathbf{q}}_j^\top\mathbf{G}_a^{-}\tilde{\mathbf{q}}_j)
+= \operatorname{tr}(\mathbf{G}_a^{-}\mathbf{V}_j)$, $\operatorname{E}(O_j) = 1$
+under $H_{0j}$. It is **not** $\chi^2$. Writing
+$\tilde{\mathbf{q}}_j = \mathbf{V}_j^{1/2}\mathbf{z}$ with
+$\mathbf{z} \sim N(\mathbf{0}, \mathbf{I}_t)$,
+
+$$
+O_j \;\overset{H_{0j}}{\sim}\; \sum_{k=1}^{t} \lambda_{jk}\,\chi^2_{1,k},
+\qquad
+\lambda_{jk} = \frac{\operatorname{eig}_k\!\left(
+   (\mathbf{G}_a^{-})^{1/2}\,\mathbf{V}_j\,(\mathbf{G}_a^{-})^{1/2}\right)}
+   {\operatorname{tr}\!\left(\mathbf{G}_a^{-}\mathbf{V}_j\right)},
+\qquad \sum_k \lambda_{jk} = 1,
+$$
+
+a weighted sum of independent $\chi^2_1$ variables.
+
+### Per-marker p-value (Imhof 1961)
+
+For $Q = \sum_k \lambda_k \chi^2_{1,k}$ with $\lambda_k > 0$,
+
+$$
+\Pr(Q > x) \;=\; \frac12 + \frac1\pi \int_0^\infty
+\frac{\sin\theta(u)}{u\,\rho(u)}\,du,
+\qquad
+\theta(u) = \tfrac12\sum_k \arctan(\lambda_k u) - \tfrac12 x u,
+\quad
+\rho(u) = \prod_k \left(1 + \lambda_k^2 u^2\right)^{1/4}.
+$$
+
+The integrand oscillates with period $4\pi/x$ and decays like
+$u^{-1-t/2}$; it is integrated over half-period chunks up to the point where
+the envelope is negligible (verified against Monte Carlo and against the exact
+cases $t=1$ and $\lambda_k = 1/t$, where $tQ \sim \chi^2_t$).
+
+### Standardised alternative
+
+A pivotal alternative is
+
+$$
+S_j = \tilde{\mathbf{q}}_j^\top\,\mathbf{V}_j^{-}\,\tilde{\mathbf{q}}_j
+\;\overset{H_{0j}}{\sim}\; \chi^2_{r_j},
+\qquad r_j = \operatorname{rank}(\mathbf{V}_j).
+$$
+
+$S_j$ weights trials by the precision of the BLUPs rather than by
+$\mathbf{G}_a^{-}$, so it could select a different marker from the published
+statistic. In the simulations below it gave the same stop/continue decisions.
+
+# Family-wise control over markers
+
+At each iteration we test the *best* marker, $O_{(1)} = \max_j O_j$, so the
+null of interest is the global one, $H_0 = \bigcap_j H_{0j}$.
+
+## Bonferroni
+
+$$
+p_{\text{Bonf}} = \min\!\left(1,\; m\, p_{(1)}\right),
+\qquad p_{(1)} = \Pr\!\left(O_{j^*} > O_{(1)} \mid H_{0j^*}\right),
+$$
+
+with $j^*$ the selected marker.
+
+## Exact max-statistic null by simulation
+
+All marker BLUPs are a linear map of the line BLUPs:
+
+$$
+\tilde{\mathbf{q}} = (\mathbf{I}_t \otimes \mathbf{T})\,\tilde{\mathbf{g}},
+\qquad
+\tilde{\mathbf{g}} \overset{H_0}{\sim} N(\mathbf{0}, \mathbf{V}_g).
+$$
+
+So the joint null distribution of $(O_1, \ldots, O_m)$ is known and can be
+simulated **without refitting the mixed model**:
+
+1. Factor $\mathbf{V}_g = \mathbf{L}\mathbf{L}^\top$ (eigen-decomposition,
+   negligible/negative eigenvalues truncated).
+2. For $b = 1, \ldots, B$: draw $\mathbf{z}_b \sim N(\mathbf{0}, \mathbf{I})$,
+   set $\tilde{\mathbf{g}}^*_b = \mathbf{L}\mathbf{z}_b$,
+   $\tilde{\mathbf{q}}^*_{k,b} = \mathbf{T}\,\tilde{\mathbf{g}}^*_{k,b}$,
+   compute every $O^*_{j,b}$ with the same denominators, and record
+   $O^*_{(1),b} = \max_j O^*_{j,b}$.
+3. Family-wise p-value and threshold:
+
+$$
+p_{\text{FWE}} = \frac{1 + \#\{b : O^*_{(1),b} \ge O_{(1)}\}}{1 + B},
+\qquad
+c_\alpha = \text{the } (1-\alpha) \text{ quantile of } \{O^*_{(1),b}\}.
+$$
+
+This accounts automatically for linkage disequilibrium between markers (the
+$m$ statistics live in a space of dimension at most $nt$), for the
+multivariate weighting, and for the markers removed by exclusion windows. The
+cost is one eigen-decomposition of an $nt \times nt$ matrix plus
+$O(mnB)$ multiplications per trial, i.e. seconds, not ASReml refits.
+
+## Effective number of tests
+
+As a summary of how much LD reduces the multiplicity, define $M_{\text{eff}}$
+by Šidák's relation at the simulated threshold:
+
+$$
+1 - \left(1 - p^*\right)^{M_{\text{eff}}} = \alpha,
+\qquad
+p^* = \Pr(O_{j^*} > c_\alpha \mid H_{0j^*})
+\;\;\Rightarrow\;\;
+M_{\text{eff}} = \frac{\log(1-\alpha)}{\log(1-p^*)} .
+$$
+
+# Proposed sequential procedure
+
+1. **Entry gate (unchanged).** Fit the genome-wide model and perform the LRT of
+   Section 3. If not significant, stop: there is no genetic signal to map.
+2. **Iteration $i = 1, 2, \ldots$**
+   a. Compute $O_j$ for all remaining markers (as now) and select
+      $j^* = \arg\max_j O_j$.
+   b. Compute $p_{\text{FWE}}$ (or $p_{\text{Bonf}}$) for $O_{(1)}$.
+   c. If $p_{\text{FWE}} > \alpha$: stop, $j^*$ is **not** added.
+   d. Otherwise add $X_{j^*}$ (and $\text{Trial}{:}X_{j^*}$) as fixed effects,
+      remove the exclusion window from $\mathbf{M}$, refit, and continue.
+   e. Stop also at `breakout`.
+
+Each step tests the maximum over the remaining markers conditional on those
+already fitted, which is a step-down procedure with approximate family-wise
+control at each step. This could be exposed as an option, e.g.
+`stop.rule = c("lrt", "outlier")`, keeping the current behaviour available.
+
+## Caveats
+
+* **Plug-in variance parameters.** $\mathbf{G}_a$, $\mathbf{C}$ and the other
+  variance parameters are estimated, so the null distributions hold
+  asymptotically.
+* **Early iterations are conservative.** Large unfitted QTL inflate
+  $\mathbf{G}_a$, so the null is wider than it should be; this errs on the
+  safe side.
+* **Power under strong background.** A moderate QTL can be real (small
+  per-marker p-value) yet not exceptional among $m$ markers' worth of
+  polygenic noise (Section 7.2).
+* **Selection.** The selected markers depend on the data, so the procedure as
+  a whole has approximate, not exact, family-wise error control.
+
+# Simulation evidence
+
+Three trials, `us(Trial):id` base model, 191 genotyped lines, 1,501 markers,
+three planted QTL (Chr8 crossover, Chr2 and Chr5 main effects). K-structured
+polygenic background $\mathbf{U} \sim N(\mathbf{0}, \mathbf{G}_K \otimes \mathbf{K})$
+with $\mathbf{G}_K$ scaled by a factor $\kappa$. `TypeI = 0.999` so that the
+LRT never stops the loop (`breakout = 8`); this shows where each rule *would*
+have stopped. $\alpha = 0.05$, $B = 2000$. The LRT column is the test *before*
+the marker in that row is added.
+
+## Weak background ($\kappa = 0.05$)
+
+| Iter | Marker | Planted | LRT $p$ | $O_{(1)}$ | $c_{0.05}$ | $p_{\text{FWE}}$ | $p_{\text{Bonf}}$ |
+|---:|---|:---:|---:|---:|---:|---:|---:|
+| 1 | Chr8 m73 | ✔ | 0.001 | 21.98 | 10.38 | **0.0005** | <1e-6 |
+| 2 | Chr2 m73 | ✔ | 0.723 | 17.73 | 11.26 | **0.0005** | 0.0004 |
+| 3 | Chr5 m76 | ✔ | 0.740 | 15.06 | 10.82 | **0.0020** | 0.0013 |
+| 4 | Chr3 m40 |  | 0.838 | 4.88 | 9.57 | 0.972 | 1 |
+| 5 | Chr3 m131 |  | 0.813 | 5.41 | 10.11 | 0.930 | 1 |
+| 6 | Chr1 m51 |  | 0.804 | 5.53 | 9.91 | 0.922 | 1 |
+| 7 | Chr5 m118 |  | 0.698 | 4.92 | 10.99 | 0.994 | 1 |
+| 8 | Chr2 m39 |  | 0.549 | 5.68 | 11.37 | 0.941 | 1 |
+
+The AOM rule recovers all three planted QTL and stops immediately after them.
+The LRT would have stopped after the first QTL.
+
+## Strong background ($\kappa = 1$)
+
+| Iter | Marker | Planted | LRT $p$ | $O_{(1)}$ | $c_{0.05}$ | $p_{\text{FWE}}$ | $p_{\text{Bonf}}$ |
+|---:|---|:---:|---:|---:|---:|---:|---:|
+| 1 | Chr8 m73 | ✔ | 3e-11 | 12.57 | 9.58 | **0.0030** | 0.0026 |
+| 2 | Chr2 m73 | ✔ | 4e-5 | 15.11 | 11.24 | **0.0015** | 0.0024 |
+| 3 | Chr5 m76 | ✔ | 2e-5 | 7.08 | 10.34 | 0.589 | 1 |
+| 4 | Chr3 m32 |  | 7e-6 | 7.73 | 10.25 | 0.366 | 0.648 |
+| 5 | Chr3 m107 |  | 7e-7 | 6.23 | 10.04 | 0.766 | 1 |
+| 6 | Chr2 m126 |  | 3e-6 | 6.16 | 9.86 | 0.747 | 1 |
+| 7 | Chr3 m145 |  | 2e-6 | 6.28 | 9.85 | 0.718 | 1 |
+| 8 | Chr4 m132 |  | 3e-7 | 5.89 | 10.08 | 0.839 | 1 |
+
+The AOM rule stops after two QTL; every spurious marker is clearly
+non-significant, while the LRT never stops. It misses the Chr5 QTL
+(per-marker $p = 8 \times 10^{-4}$): real, but not exceptional among
+1,501 markers' worth of polygenic background.
+
+## Observations
+
+* The simulated null of $O_j$ has mean $1.00$ in every iteration, as the
+  theory requires, and the diagnostic reproduces the package's $O_{(1)}$
+  exactly.
+* Bonferroni is close to the simulated family-wise p-value here
+  ($M_{\text{eff}} \approx 800$–$1500$ of 1,501 markers), so it is a cheap and
+  honest fallback for panels like this one.
+* The standardised statistic $S_j$ gave the same decisions.
+
+# Next steps
+
+1. Replicate simulations: no planted QTL (family-wise false-positive rate),
+   weak and strong backgrounds (power), and a six-trial `fa(2)` case.
+2. Run the colleague's data with the diagnostic attached to see where the rule
+   would have stopped.
+3. If adopted: extend `compute_vqtilde()` to return the full $t \times t$
+   blocks $\mathbf{V}_j$, and add the stopping option.
+
+# References
+
+* The alternative outlier model in the QTL context is described in
+  Verbyla, Cullis & Thompson (2007) and references therein *(original AOM
+  reference to be added)*.
+* Imhof, J. P. (1961). Computing the distribution of quadratic forms in normal
+  variables. *Biometrika* 48, 419–426.
+* Self, S. G. and Liang, K.-Y. (1987). Asymptotic properties of maximum
+  likelihood estimators and likelihood ratio tests under nonstandard
+  conditions. *JASA* 82, 605–610.
+* Verbyla, A. P., Cullis, B. R. and Thompson, R. (2007). The analysis of QTLs
+  by simultaneous use of the full linkage map. *Theoretical and Applied
+  Genetics* 116, 95–111.
+* Verbyla, A. P., Taylor, J. D. and Verbyla, K. L. (2012). RWGAIM: an
+  efficient high-dimensional random whole genome average (QTL) interval
+  mapping approach. *Genetics Research* 94, 291–306.

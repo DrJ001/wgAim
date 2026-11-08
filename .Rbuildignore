@@ -7,6 +7,7 @@
 ^cran-comments.md$
 ^CRAN-SUBMISSION$
 ^scratch$
+^research$
 ^_pkgdown\.yml$
 ^docs$
 ^vignettes/.*\.html$
