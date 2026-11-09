@@ -30,9 +30,10 @@ nrep   <- as.integer(args[4L])
 seed0  <- as.integer(args[5L])
 struct <- if (length(args) >= 6L) args[6L] else "us"
 B      <- if (length(args) >= 7L) as.integer(args[7L]) else 1000L
+out.sub <- if (length(args) >= 8L) args[8L] else "stage1"
 stopifnot(pop %in% c("gwas", "dh"), n.t %in% c(1L, 3L))
 
-out.dir <- "scratch/aom_stopping/results/stage1"
+out.dir <- file.path("scratch/aom_stopping/results", out.sub)
 dir.create(out.dir, showWarnings = FALSE)
 out.csv <- file.path(out.dir, sprintf("%s_t%d_k%s.csv", pop, n.t, kscale))
 
@@ -157,25 +158,36 @@ for (r in seq_len(nrep)) {
         if (is.null(last)) {
             cbind(base.row, status = "gate-stop", marker = NA, max.oint = NA, p.marker = NA,
                   p.bonf = 1, fwe.thr = NA, p.fwe = 1, Meff = NA, p.maha.bonf = 1,
-                  p.fwe.chr = 1, null.mean = NA, chk = NA)
+                  p.fwe.chr = 1, null.mean = NA, chk = NA,
+                  p.fwe.stud = 1, p.fwe.studM = 1, fwe.thr.stud = NA, fwe.thr.studM = NA,
+                  obs.ratio = NA, obs.Sdev = NA, p.fwe.studO = 1, p.fwe.studP = 1,
+                  n.unpinned = NA, w.min = NA, w.max = NA)
         } else {
             cbind(base.row, status = "ok", marker = last$marker, max.oint = last$max.oint,
                   p.marker = last$p.marker, p.bonf = last$p.bonf, fwe.thr = last$fwe.thr,
                   p.fwe = last$p.fwe, Meff = last$Meff, p.maha.bonf = last$p.maha.bonf,
-                  p.fwe.chr = last$p.fwe.chr, null.mean = last$null.mean.oint, chk = last$chk)
+                  p.fwe.chr = last$p.fwe.chr, null.mean = last$null.mean.oint, chk = last$chk,
+                  p.fwe.stud = last$p.fwe.stud, p.fwe.studM = last$p.fwe.studM,
+                  fwe.thr.stud = last$fwe.thr.stud, fwe.thr.studM = last$fwe.thr.studM,
+                  obs.ratio = last$obs.ratio, obs.Sdev = last$obs.Sdev,
+                  p.fwe.studO = last$p.fwe.studO, p.fwe.studP = last$p.fwe.studP,
+                  n.unpinned = last$n.unpinned, w.min = last$w.min, w.max = last$w.max)
         }
     }, error = function(e) {
         data.frame(pop = pop, ntrait = n.t, kscale = kscale, seed = seed, lrt0 = NA,
                    p.lrt0 = NA, status = paste("error:", substr(conditionMessage(e), 1, 80)),
                    marker = NA, max.oint = NA, p.marker = NA, p.bonf = NA, fwe.thr = NA,
                    p.fwe = NA, Meff = NA, p.maha.bonf = NA, p.fwe.chr = NA,
-                   null.mean = NA, chk = NA)
+                   null.mean = NA, chk = NA, p.fwe.stud = NA, p.fwe.studM = NA,
+                   fwe.thr.stud = NA, fwe.thr.studM = NA, obs.ratio = NA, obs.Sdev = NA,
+                   p.fwe.studO = NA, p.fwe.studP = NA, n.unpinned = NA, w.min = NA, w.max = NA)
     })
     row$secs <- round(as.numeric(difftime(Sys.time(), t0, units = "secs")), 1)
     write.table(row, out.csv, sep = ",", row.names = FALSE,
                 col.names = !file.exists(out.csv), append = file.exists(out.csv))
-    cat(sprintf("rep %3d seed %d  %-10s LRT0 %7.2f  max.oint %6.2f  p.fwe %.4f  p.bonf %.4f  [%.0fs]\n",
-                r, seed, substr(row$status, 1, 10), row$lrt0, row$max.oint, row$p.fwe,
-                row$p.bonf, row$secs))
+    cat(sprintf("rep %3d seed %d  %-10s LRT0 %7.2f  p.fwe %.4f  studM %.4f  studO %.4f  studP %.4f  unpinned %s  w %.3f-%.3f  [%.0fs]\n",
+                r, seed, substr(row$status, 1, 10), row$lrt0, row$p.fwe,
+                row$p.fwe.studM, row$p.fwe.studO, row$p.fwe.studP,
+                as.character(row$n.unpinned), row$w.min, row$w.max, row$secs))
 }
 cat("DONE\n")

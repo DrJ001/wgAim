@@ -1,0 +1,301 @@
+"pop","ntrait","kscale","lscale","seed","base.str","vm.conv","n.cont","n.bounded","status","lrt.stat","p.lrt","max.oint","p.most","p.orig","p.studM","p.bonf","thr.most","diag.pin.dev","Meff","null.mean","secs"
+"dh",3,0,0,4001,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,2.4
+"dh",3,0,0,4002,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,2.8
+"dh",3,0,0,4003,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,3.4
+"dh",3,0,0,4004,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,3.1
+"dh",3,0,0,4005,"us",FALSE,2,1,"ok",1.8706887818563,0.286401883416014,4.78749435461621,0.613386613386613,0.578421578421578,0.578421578421578,1,7.32103843052657,6.4136772408574e-06,100.467896300164,1.00712063084136,17.4
+"dh",3,0,0,4006,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.3
+"dh",3,0,0,4007,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.4
+"dh",3,0,0,4008,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.8
+"dh",3,0,0,4009,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8
+"dh",3,0,0,4010,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.4
+"dh",3,0,0,4011,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,6.3
+"dh",3,0,0,4012,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,2.9
+"dh",3,0,0,4013,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,3.6
+"dh",3,0,0,4014,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,3.5
+"dh",3,0,0,4015,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,6.4
+"dh",3,0,0,4016,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,4.4
+"dh",3,0,0,4017,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,2.8
+"dh",3,0,0,4018,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,3.5
+"dh",3,0,0,4019,"us",FALSE,2,0,"ok",1.60890803308882,0.326663007775579,7.39869652994698,0.141858141858142,0.180819180819181,0.136863136863137,1,8.54941482574958,0.154429846871602,102.822866793899,0.992640355539048,22.1
+"dh",3,0,0,4020,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,2.9
+"dh",3,0,0,4021,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,2.8
+"dh",3,0,0,4022,NA,NA,NA,NA,"error: Error   : Variance structure is not positive definite",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,4
+"dh",3,0,0,4023,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,4.6
+"dh",3,0,0,4024,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,3.9
+"dh",3,0,0,4025,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,4
+"dh",3,0,0,4026,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,11.4
+"dh",3,0,0,4027,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.8
+"dh",3,0,0,4028,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.4
+"dh",3,0,0,4029,"us",TRUE,0,1,"ok",0.232226413814146,0.691622915629753,4.2445993684824,0.84015984015984,0.704295704295704,0.824175824175824,1,7.82201295266085,4.99883174071014e-05,118.663649967951,1.00605065994817,25.7
+"dh",3,0,0,4030,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.1
+"dh",3,0,0,4031,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8
+"dh",3,0,0,4032,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.4
+"dh",3,0,0,4033,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.4
+"dh",3,0,0,4034,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.2
+"dh",3,0,0,4035,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,9.5
+"dh",3,0,0,4036,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,9.2
+"dh",3,0,0,4037,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.4
+"dh",3,0,0,4038,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.8
+"dh",3,0,0,4039,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.3
+"dh",3,0,0,4040,"diag",TRUE,0,2,"ok",5.84170967057878,0.0410231501609786,6.12153230689292,0.878121878121878,0.734265734265734,0.878121878121878,1,11.5158876461161,3.31474098724804e-05,168.253725004245,1.01167680748979,19.1
+"dh",3,0,0,4041,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.3
+"dh",3,0,0,4042,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.5
+"dh",3,0,0,4043,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,9.4
+"dh",3,0,0,4044,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.3
+"dh",3,0,0,4045,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.3
+"dh",3,0,0,4046,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.7
+"dh",3,0,0,4047,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.9
+"dh",3,0,0,4048,NA,NA,NA,NA,"error: Error   : Variance structure is not positive definite",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,1148.3
+"dh",3,0,0,4049,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,738.5
+"dh",3,0,0,4050,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,11
+"dh",3,0,0,4051,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,9.1
+"dh",3,0,0,4052,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,9.4
+"dh",3,0,0,4053,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,6.8
+"dh",3,0,0,4054,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.7
+"dh",3,0,0,4055,NA,NA,NA,NA,"error: Error   : Variance structure is not positive definite",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.2
+"dh",3,0,0,4056,"diag",TRUE,0,3,"no-signal",-0.000194849664922003,1,NA,1,1,1,1,NA,NA,NA,NA,10.6
+"dh",3,0,0,4057,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.2
+"dh",3,0,0,4058,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,9.1
+"dh",3,0,0,4059,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,9
+"dh",3,0,0,4060,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.5
+"dh",3,0,0,4061,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,10.1
+"dh",3,0,0,4062,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.7
+"dh",3,0,0,4063,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.7
+"dh",3,0,0,4064,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.5
+"dh",3,0,0,4065,"diag",TRUE,0,1,"ok",0.126229586893601,0.746517801685882,3.94602645347912,0.813186813186813,0.732267732267732,0.793206793206793,1,6.90716712568624,0.000178107731104049,114.661222846256,1.00950980257335,29.3
+"dh",3,0,0,4066,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.9
+"dh",3,0,0,4067,"diag",TRUE,0,2,"ok",0.813739442767428,0.493052713122445,15.8227118336206,0.000999000999000999,0.00799200799200799,0.000999000999000999,0.0413201198460844,11.0594278720733,0.000598774233777299,102.3712951779,1.01429128232759,16.4
+"dh",3,0,0,4068,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.8
+"dh",3,0,0,4069,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.4
+"dh",3,0,0,4070,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.1
+"dh",3,0,0,4071,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.3
+"dh",3,0,0,4072,"diag",TRUE,0,3,"no-signal",-0.000200758601181406,1,NA,1,1,1,1,NA,NA,NA,NA,10.7
+"dh",3,0,0,4073,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.8
+"dh",3,0,0,4074,"us",TRUE,0,1,"ok",0.0849709364294995,0.772600378304399,5.79513836986046,0.738261738261738,0.619380619380619,0.737262737262737,1,10.5503252939266,0.000187082051775755,103.77854242563,1.00894364409354,24.9
+"dh",3,0,0,4075,"us",TRUE,0,1,"ok",1.85266726697398,0.288996358457529,4.6072266770749,0.843156843156843,0.737262737262737,0.838161838161838,1,8.91298967131534,0.000268685470847685,119.94347295211,1.00399761800755,21.5
+"dh",3,0,0,4076,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8
+"dh",3,0,0,4077,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.8
+"dh",3,0,0,4078,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.8
+"dh",3,0,0,4079,NA,NA,NA,NA,"error: Error   : Variance structure is not positive definite",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.1
+"dh",3,0,0,4080,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.7
+"dh",3,0,0,4081,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.9
+"dh",3,0,0,4082,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.5
+"dh",3,0,0,4083,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.7
+"dh",3,0,0,4084,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.7
+"dh",3,0,0,4085,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.2
+"dh",3,0,0,4086,"us",TRUE,0,3,"no-signal",0.00688253305020226,0.848898746056189,NA,1,1,1,1,NA,NA,NA,NA,8.7
+"dh",3,0,0,4087,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,9.2
+"dh",3,0,0,4088,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.5
+"dh",3,0,0,4089,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.4
+"dh",3,0,0,4090,NA,NA,NA,NA,"error: Error   : Variance structure is not positive definite",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.5
+"dh",3,0,0,4091,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8
+"dh",3,0,0,4092,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.5
+"dh",3,0,0,4093,NA,NA,NA,NA,"error: Error   : Variance structure is not positive definite",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.8
+"dh",3,0,0,4094,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.9
+"dh",3,0,0,4095,"us",TRUE,0,3,"no-signal",0.00143743814328445,0.863387491276422,NA,1,1,1,1,NA,NA,NA,NA,8.2
+"dh",3,0,0,4096,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.1
+"dh",3,0,0,4097,"us",FALSE,2,1,"ok",1.43103935035992,0.357484234807013,7.37487607702109,0.213786213786214,0.24975024975025,0.215784215784216,1,9.28730270982645,4.90046322410009e-06,116.325926600039,1.01079200402141,47.1
+"dh",3,0,0,4098,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.8
+"dh",3,0,0,4099,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.2
+"dh",3,0,0,4100,"us",TRUE,0,2,"ok",0.44866143475906,0.604510362815191,5.53403526835832,0.839160839160839,0.729270729270729,0.839160839160839,1,10.4428233082658,3.53387760860802e-05,87.1535700642559,1.01451769779444,16.1
+"dh",3,0,0,4101,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.5
+"dh",3,0,0,4102,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.7
+"dh",3,0,0,4103,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.1
+"dh",3,0,0,4104,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.7
+"dh",3,0,0,4105,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8
+"dh",3,0,0,4106,NA,NA,NA,NA,"error: Error   : Variance structure is not positive definite",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.5
+"dh",3,0,0,4107,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8
+"dh",3,0,0,4108,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.3
+"dh",3,0,0,4109,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.3
+"dh",3,0,0,4110,"us",FALSE,2,1,"ok",2.00078780698129,0.268387414446394,7.45289425585722,0.226773226773227,0.262737262737263,0.21978021978022,1,9.22051618531471,1.50807813366072e-05,108.99244831343,1.00508698020695,48.7
+"dh",3,0,0,4111,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.4
+"dh",3,0,0,4112,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.8
+"dh",3,0,0,4113,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.3
+"dh",3,0,0,4114,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.5
+"dh",3,0,0,4115,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.6
+"dh",3,0,0,4116,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.9
+"dh",3,0,0,4117,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,11.4
+"dh",3,0,0,4118,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.3
+"dh",3,0,0,4119,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.8
+"dh",3,0,0,4120,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.3
+"dh",3,0,0,4121,"us",TRUE,0,2,"ok",0.101262878435364,0.761816305148573,8.16025039542952,0.266733266733267,0.284715284715285,0.267732267732268,1,10.4176477837221,0.000392292935294303,79.4099400896586,1.01525709720184,15.8
+"dh",3,0,0,4122,NA,NA,NA,NA,"error: Error   : Variance structure is not positive definite",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.2
+"dh",3,0,0,4123,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.8
+"dh",3,0,0,4124,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.4
+"dh",3,0,0,4125,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.9
+"dh",3,0,0,4126,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7
+"dh",3,0,0,4127,NA,NA,NA,NA,"error: Error   : Variance structure is not positive definite",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.8
+"dh",3,0,0,4128,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.5
+"dh",3,0,0,4129,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.5
+"dh",3,0,0,4130,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.2
+"dh",3,0,0,4131,NA,NA,NA,NA,"error: Error   : Variance structure is not positive definite",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.5
+"dh",3,0,0,4132,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.1
+"dh",3,0,0,4133,NA,NA,NA,NA,"error: Error   : Variance structure is not positive definite",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.5
+"dh",3,0,0,4134,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8
+"dh",3,0,0,4135,NA,NA,NA,NA,"error: Error   : Variance structure is not positive definite",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.6
+"dh",3,0,0,4136,NA,NA,NA,NA,"error: Error   : Variance structure is not positive definite",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,9.2
+"dh",3,0,0,4137,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8
+"dh",3,0,0,4138,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8
+"dh",3,0,0,4139,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.4
+"dh",3,0,0,4140,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.6
+"dh",3,0,0,4141,NA,NA,NA,NA,"error: Error   : Variance structure is not positive definite",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.8
+"dh",3,0,0,4142,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.4
+"dh",3,0,0,4143,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.6
+"dh",3,0,0,4144,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.3
+"dh",3,0,0,4145,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.3
+"dh",3,0,0,4146,"diag",TRUE,0,3,"no-signal",-0.000225748932734859,1,NA,1,1,1,1,NA,NA,NA,NA,12.4
+"dh",3,0,0,4147,"us",FALSE,2,2,"ok",0.0833203297302134,0.773736220712841,7.28516862396757,0.341658341658342,0.375624375624376,0.358641358641359,1,10.3210460470065,0.0161851596984508,91.9957091966145,1.01774121332182,41.5
+"dh",3,0,0,4148,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.2
+"dh",3,0,0,4149,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8
+"dh",3,0,0,4150,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.4
+"dh",3,0,0,4151,"diag",TRUE,0,2,"ok",0.0288451269610732,0.818895308415008,7.03514822069724,0.438561438561439,0.425574425574426,0.438561438561439,1,10.3269036310962,0.000199266932973119,90.2062446622998,1.01744463593057,17.9
+"dh",3,0,0,4152,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.5
+"dh",3,0,0,4153,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.7
+"dh",3,0,0,4154,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.5
+"dh",3,0,0,4155,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.7
+"dh",3,0,0,4156,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.1
+"dh",3,0,0,4157,"diag",TRUE,0,1,"ok",2.91367852035569,0.170941881396276,8.63164676683977,0.018981018981019,0.035964035964036,0.013986013986014,0.19147874290455,7.50591229827134,3.30556810368421e-07,130.808042800786,1.00555230132309,24.1
+"dh",3,0,0,4158,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.3
+"dh",3,0,0,4159,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.3
+"dh",3,0,0,4160,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.6
+"dh",3,0,0,4161,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.8
+"dh",3,0,0,4162,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8
+"dh",3,0,0,4163,"us",TRUE,0,2,"ok",0.110320777801007,0.756113564281928,6.79109548110921,0.53046953046953,0.487512487512488,0.53046953046953,1,10.4045048038618,5.14669102477106e-05,80.1125162990811,1.01518121743591,18
+"dh",3,0,0,4164,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.1
+"dh",3,0,0,4165,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.2
+"dh",3,0,0,4166,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.1
+"dh",3,0,0,4167,NA,NA,NA,NA,"error: Error   : Variance structure is not positive definite",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.6
+"dh",3,0,0,4168,"us",TRUE,0,2,"ok",1.13174332115807,0.416902922117606,5.68749186947601,0.847152847152847,0.734265734265734,0.846153846153846,1,10.9412069084265,6.77335330290241e-06,103.370724099898,1.01489361158014,16.5
+"dh",3,0,0,4169,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.4
+"dh",3,0,0,4170,"us",TRUE,0,2,"ok",0.692745664130484,0.526543912193764,6.82241928630461,0.56943056943057,0.535464535464535,0.56943056943057,1,10.8397012593606,2.55812398242128e-05,103.866313345855,1.01520294866507,17.3
+"dh",3,0,0,4171,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.4
+"dh",3,0,0,4172,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.7
+"dh",3,0,0,4173,"us",FALSE,2,0,"ok",2.24933577145782,0.237199059221439,7.55706595791902,0.283716283716284,0.298701298701299,0.282717282717283,1,9.61963670675664,2.49577550959224e-07,129.190690988877,0.995164879074819,50.7
+"dh",3,0,0,4174,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,11.4
+"dh",3,0,0,4175,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.9
+"dh",3,0,0,4176,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.9
+"dh",3,0,0,4177,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.1
+"dh",3,0,0,4178,NA,NA,NA,NA,"error: Error   : Variance structure is not positive definite",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.3
+"dh",3,0,0,4179,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.6
+"dh",3,0,0,4180,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8
+"dh",3,0,0,4181,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.3
+"dh",3,0,0,4182,NA,NA,NA,NA,"error: Error   : Variance structure is not positive definite",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.2
+"dh",3,0,0,4183,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.1
+"dh",3,0,0,4184,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8
+"dh",3,0,0,4185,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.5
+"dh",3,0,0,4186,"us",TRUE,0,1,"ok",0.0628094685856695,0.788683658079281,6.58274766663864,0.153846153846154,0.224775224775225,0.154845154845155,1,8.12978296847972,0.000555695829946412,124.527888966812,1.00747595503617,24.6
+"dh",3,0,0,4187,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.1
+"dh",3,0,0,4188,NA,NA,NA,NA,"error: Error   : Variance structure is not positive definite",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8
+"dh",3,0,0,4189,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.6
+"dh",3,0,0,4190,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.1
+"dh",3,0,0,4191,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.4
+"dh",3,0,0,4192,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.7
+"dh",3,0,0,4193,NA,NA,NA,NA,"error: Error   : Variance structure is not positive definite",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.4
+"dh",3,0,0,4194,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.9
+"dh",3,0,0,4195,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.7
+"dh",3,0,0,4196,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.1
+"dh",3,0,0,4197,"us",TRUE,0,2,"ok",1.42675406828153,0.358265050530877,8.4089456875925,0.283716283716284,0.304695304695305,0.283716283716284,1,11.1039880218706,3.98633118199321e-05,103.649280275619,1.01418286478794,18.9
+"dh",3,0,0,4198,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,12.5
+"dh",3,0,0,4199,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.9
+"dh",3,0,0,4200,"diag",TRUE,0,3,"no-signal",-0.000170265181395735,1,NA,1,1,1,1,NA,NA,NA,NA,11.4
+"dh",3,0,0,4201,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.6
+"dh",3,0,0,4202,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.3
+"dh",3,0,0,4203,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.8
+"dh",3,0,0,4204,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.3
+"dh",3,0,0,4205,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.1
+"dh",3,0,0,4206,"diag",TRUE,0,2,"ok",0.707649677330096,0.522259059009022,5.73149757889837,0.821178821178821,0.718281718281718,0.821178821178821,1,10.836646061454,2.3129477957573e-05,103.413015305506,1.01523930987154,19.4
+"dh",3,0,0,4207,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.1
+"dh",3,0,0,4208,"us",TRUE,0,2,"ok",1.22156902469726,0.397971139346014,5.06561376129532,0.961038961038961,0.84015984015984,0.961038961038961,1,11.0769041723486,7.40562615519913e-06,103.024402259943,1.01424277900499,14.4
+"dh",3,0,0,4209,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.8
+"dh",3,0,0,4210,"us",TRUE,0,3,"no-signal",-0.000260132200992302,1,NA,1,1,1,1,NA,NA,NA,NA,11
+"dh",3,0,0,4211,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,9.1
+"dh",3,0,0,4212,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,11.8
+"dh",3,0,0,4213,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,10.6
+"dh",3,0,0,4214,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,14
+"dh",3,0,0,4215,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,12
+"dh",3,0,0,4216,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,11.4
+"dh",3,0,0,4217,"us",TRUE,0,3,"no-signal",-0.000226836274123343,1,NA,1,1,1,1,NA,NA,NA,NA,14.5
+"dh",3,0,0,4218,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,13.2
+"dh",3,0,0,4219,NA,NA,NA,NA,"error: Error   : Variance structure is not positive definite",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,14.4
+"dh",3,0,0,4220,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,12.4
+"dh",3,0,0,4221,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,11.6
+"dh",3,0,0,4222,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,10.6
+"dh",3,0,0,4223,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.6
+"dh",3,0,0,4224,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,11.6
+"dh",3,0,0,4225,"us",TRUE,0,2,"ok",7.97631445266234e-05,0.87231283499599,6.89196035940049,0.461538461538462,0.43956043956044,0.461538461538462,1,10.2982698113306,0.00060673791927035,86.5159615222213,1.01754732846042,13.4
+"dh",3,0,0,4226,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,4.8
+"dh",3,0,0,4227,"us",FALSE,2,1,"ok",1.99057782924774,0.269756995397906,5.56060468551064,0.457542457542458,0.445554445554446,0.430569430569431,1,8.02252091260298,1.08351830094833e-05,149.659861869305,1.00550554858908,29.4
+"dh",3,0,0,4228,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.4
+"dh",3,0,0,4229,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,3.3
+"dh",3,0,0,4230,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,9.4
+"dh",3,0,0,4231,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,10.1
+"dh",3,0,0,4232,NA,NA,NA,NA,"error: Error   : Variance structure is not positive definite",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,13.4
+"dh",3,0,0,4233,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.8
+"dh",3,0,0,4234,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.3
+"dh",3,0,0,4235,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.2
+"dh",3,0,0,4236,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.4
+"dh",3,0,0,4237,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.7
+"dh",3,0,0,4238,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,6.9
+"dh",3,0,0,4239,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,6.3
+"dh",3,0,0,4240,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,2.6
+"dh",3,0,0,4241,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,6
+"dh",3,0,0,4242,"us",TRUE,0,3,"no-signal",0.0171504026837965,0.832651502830143,NA,1,1,1,1,NA,NA,NA,NA,10.5
+"dh",3,0,0,4243,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.9
+"dh",3,0,0,4244,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,6.4
+"dh",3,0,0,4245,"us",TRUE,0,3,"no-signal",-0.000350083667058243,1,NA,1,1,1,1,NA,NA,NA,NA,7.4
+"dh",3,0,0,4246,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,6.9
+"dh",3,0,0,4247,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.2
+"dh",3,0,0,4248,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,2.9
+"dh",3,0,0,4249,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,6.1
+"dh",3,0,0,4250,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.6
+"dh",3,0,0,4251,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.2
+"dh",3,0,0,4252,"diag",TRUE,0,2,"ok",0.01116764270148,0.841312264445317,4.15324342515467,0.99000999000999,0.908091908091908,0.99000999000999,1,10.2959507780249,1.64029074811722e-06,85.5956612127814,1.01757399766188,14.3
+"dh",3,0,0,4253,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,6.3
+"dh",3,0,0,4254,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.3
+"dh",3,0,0,4255,"us",TRUE,0,1,"ok",1.1809090112173,0.406415738437592,3.66846094452029,0.974025974025974,0.885114885114885,0.974025974025974,1,7.80353577613866,5.69304780861923e-05,127.700455441801,1.0037071146969,25
+"dh",3,0,0,4256,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.3
+"dh",3,0,0,4257,"diag",TRUE,0,1,"ok",0.335142009377023,0.647297436487824,5.82126570991321,0.473526473526474,0.443556443556444,0.462537462537463,1,8.80110735954754,1.17799442993505e-05,117.062780463051,1.00368832851265,20.9
+"dh",3,0,0,4258,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.4
+"dh",3,0,0,4259,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.1
+"dh",3,0,0,4260,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.5
+"dh",3,0,0,4261,NA,NA,NA,NA,"error: Error   : Variance structure is not positive definite",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,6.9
+"dh",3,0,0,4262,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.3
+"dh",3,0,0,4263,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.6
+"dh",3,0,0,4264,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.1
+"dh",3,0,0,4265,NA,NA,NA,NA,"error: Error   : Variance structure is not positive definite",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,6.8
+"dh",3,0,0,4266,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.7
+"dh",3,0,0,4267,"us",FALSE,2,1,"ok",1.25441105665755,0.39129594673276,4.40919618117995,0.832167832167832,0.726273726273726,0.822177822177822,1,7.7395080701728,1.52927165499861e-05,136.390953947167,1.00588865967547,37.2
+"dh",3,0,0,4268,"diag",TRUE,0,1,"ok",0.115967821800723,0.752649835722377,5.22044569415023,0.325674325674326,0.334665334665335,0.295704295704296,1,7.00677982365118,1.04954436846993e-05,103.398480097252,0.999171814352077,22.7
+"dh",3,0,0,4269,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8
+"dh",3,0,0,4270,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7
+"dh",3,0,0,4271,NA,NA,NA,NA,"error: Error   : Variance structure is not positive definite",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,5.8
+"dh",3,0,0,4272,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.5
+"dh",3,0,0,4273,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,11.8
+"dh",3,0,0,4274,"us",TRUE,0,2,"ok",0.00955171565226465,0.843986529558818,5.38684988302168,0.843156843156843,0.705294705294705,0.844155844155844,1,10.2908623112657,0.000105859477276815,85.1710749009068,1.01758634766658,15.1
+"dh",3,0,0,4275,"us",TRUE,0,1,"ok",0.416081950366561,0.616264708889861,7.90360080970947,0.0739260739260739,0.117882117882118,0.0759240759240759,0.813373761812199,8.41219797270572,0.000104019072448946,100.602016285805,0.9957325432396,21.9
+"dh",3,0,0,4276,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.4
+"dh",3,0,0,4277,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,6.9
+"dh",3,0,0,4278,"us",FALSE,2,1,"ok",5.54146605902235,0.0474675922621471,5.10102859189943,0.742257742257742,0.665334665334665,0.729270729270729,1,8.81408981592336,5.12701044064201e-06,156.075085180984,1.0072825530819,33.5
+"dh",3,0,0,4279,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,6.6
+"dh",3,0,0,4280,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,5.9
+"dh",3,0,0,4281,"us",TRUE,0,2,"ok",0.0639483131172938,0.78780727886611,6.6466231280234,0.556443556443556,0.51048951048951,0.556443556443556,1,10.4350260633711,0.000190971311603838,78.7131719163667,1.01532851061093,14.2
+"dh",3,0,0,4282,"us",TRUE,0,2,"ok",0.246108992297081,0.685244325695306,7.76390045511546,0.343656343656344,0.343656343656344,0.343656343656344,1,10.3568461809714,5.89554442735896e-05,85.1601236852266,1.01472276879167,13.9
+"dh",3,0,0,4283,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,6.8
+"dh",3,0,0,4284,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.9
+"dh",3,0,0,4285,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.3
+"dh",3,0,0,4286,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8
+"dh",3,0,0,4287,"diag",TRUE,0,1,"ok",0.226600978206079,0.694249861418246,7.27652130914493,0.187812187812188,0.197802197802198,0.16983016983017,1,8.77765300461722,0.00130446259684458,114.614644902118,1.00380224529612,23.3
+"dh",3,0,0,4288,"us",TRUE,0,3,"no-signal",-0.000143973866215674,1,NA,1,1,1,1,NA,NA,NA,NA,9.7
+"dh",3,0,0,4289,"us",TRUE,0,1,"ok",0.819568474151993,0.491510059524603,6.70848030087263,0.357642357642358,0.370629370629371,0.358641358641359,1,9.40479916912441,6.22476360003787e-05,132.227431257779,1.0092819549375,19.8
+"dh",3,0,0,4290,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.4
+"dh",3,0,0,4291,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.2
+"dh",3,0,0,4292,"us",TRUE,0,1,"ok",0.750986425238011,0.510061785620889,6.50168616154157,0.10989010989011,0.164835164835165,0.0809190809190809,0.97964906777069,7.28267376455645,1.32721451628903e-05,138.119464339814,1.01037624489017,22.8
+"dh",3,0,0,4293,NA,NA,NA,NA,"error: Error   : Variance structure is not positive definite",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.1
+"dh",3,0,0,4294,NA,NA,NA,NA,"error: Error   : Variance structure is not positive definite",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,7.8
+"dh",3,0,0,4295,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,6.4
+"dh",3,0,0,4296,"diag",TRUE,0,1,"ok",1.37800110738669,0.367282253481971,4.25217444099816,0.85014985014985,0.722277722277722,0.836163836163836,1,7.30667832573116,1.16004485117838e-05,158.916583332444,1.00598508417838,21
+"dh",3,0,0,4297,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,13.8
+"dh",3,0,0,4298,"us",TRUE,0,1,"ok",0.911645201757892,0.467928795362861,4.80616558066196,0.657342657342657,0.59040959040959,0.638361638361638,1,7.53377343843572,0.000169984552266023,85.3615021804606,1.01238082691197,19.9
+"dh",3,0,0,4299,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,9
+"dh",3,0,0,4300,NA,NA,NA,NA,"error: Base model not converged: Check base model before proceeding.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.2

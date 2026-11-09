@@ -1,0 +1,148 @@
+﻿
+=====================================================================
+dh   t=1  K x 0.05 L x 1  reps 500: ok 351, no-signal 149, errors 0 | base us 0 / diag 0 | vm conv 1.000 | trials bounded (ok reps): 0:351
+  MOST (diag-studentised) reject @0.01/0.05/0.10: 0.004 / 0.042 (0.026-0.063) / 0.078 
+  comparison @0.05:  unstudentised 0.008   matrix-stud 0.042   Bonferroni 0.002   | legacy LRT reject 0.186 (0.153-0.223) 
+  ok reps: MOST p mean 0.485, P(p<=.10) 0.111, KS p 0.588 | pin.dev median 0.00013 max 0.0360 | Meff median 119
+
+=====================================================================
+dh   t=1  K x 0    L x 0  reps 500: ok 215, no-signal 285, errors 0 | base us 0 / diag 0 | vm conv 1.000 | trials bounded (ok reps): 0:215
+  MOST (diag-studentised) reject @0.01/0.05/0.10: 0.000 / 0.014 (0.006-0.029) / 0.024 
+  comparison @0.05:  unstudentised 0.000   matrix-stud 0.014   Bonferroni 0.000   | legacy LRT reject 0.042 (0.026-0.063) 
+  ok reps: MOST p mean 0.551, P(p<=.10) 0.056, KS p 0.011 | pin.dev median 0.00092 max 0.2443 | Meff median 114
+
+=====================================================================
+dh   t=1  K x 0    L x 1  reps 500: ok 231, no-signal 269, errors 0 | base us 0 / diag 0 | vm conv 1.000 | trials bounded (ok reps): 0:231
+  MOST (diag-studentised) reject @0.01/0.05/0.10: 0.004 / 0.020 (0.010-0.036) / 0.048 
+  comparison @0.05:  unstudentised 0.006   matrix-stud 0.020   Bonferroni 0.006   | legacy LRT reject 0.042 (0.026-0.063) 
+  ok reps: MOST p mean 0.522, P(p<=.10) 0.104, KS p 0.332 | pin.dev median 0.00024 max 0.2802 | Meff median 112
+
+=====================================================================
+dh   t=1  K x 1    L x 1  reps 500: ok 500, no-signal 0, errors 0 | base us 0 / diag 0 | vm conv 1.000 | trials bounded (ok reps): 0:500
+  MOST (diag-studentised) reject @0.01/0.05/0.10: 0.014 / 0.052 (0.034-0.075) / 0.080 
+  comparison @0.05:  unstudentised 0.024   matrix-stud 0.052   Bonferroni 0.012   | legacy LRT reject 0.992 (0.980-0.998) 
+  ok reps: MOST p mean 0.526, P(p<=.10) 0.080, KS p 0.228 | pin.dev median 0.00004 max 0.0018 | Meff median 259
+
+=====================================================================
+dh   t=3  K x 0.05 L x 1  reps 300: ok 283, no-signal 15, errors 2 | base us 298 / diag 0 | vm conv 0.990 | trials bounded (ok reps): 0:66 1:143 2:74
+
+error: Base model not converged: Check base model before proceeding. 
+                                                                   2 
+  MOST (diag-studentised) reject @0.01/0.05/0.10: 0.003 / 0.037 (0.019-0.065) / 0.084 
+  comparison @0.05:  unstudentised 0.007   matrix-stud 0.037   Bonferroni 0.003   | legacy LRT reject 0.201 (0.157-0.251) 
+  ok reps: MOST p mean 0.539, P(p<=.10) 0.088, KS p 0.018 | pin.dev median 0.00006 max 0.4527 | Meff median 130
+
+=====================================================================
+dh   t=3  K x 0    L x 1  reps 300: ok 232, no-signal 65, errors 3 | base us 297 / diag 0 | vm conv 0.980 | trials bounded (ok reps): 0:23 1:93 2:116
+
+error: Base model not converged: Check base model before proceeding. 
+                                                                   3 
+  MOST (diag-studentised) reject @0.01/0.05/0.10: 0.010 / 0.044 (0.024-0.074) / 0.074 
+  comparison @0.05:  unstudentised 0.024   matrix-stud 0.047   Bonferroni 0.000   | legacy LRT reject 0.037 (0.019-0.065) 
+  ok reps: MOST p mean 0.532, P(p<=.10) 0.095, KS p 0.160 | pin.dev median 0.00005 max 0.0815 | Meff median 104
+
+=====================================================================
+dh   t=3  K x 1    L x 1  reps 300: ok 300, no-signal 0, errors 0 | base us 300 / diag 0 | vm conv 0.983 | trials bounded (ok reps): 0:298 1:2
+  MOST (diag-studentised) reject @0.01/0.05/0.10: 0.010 / 0.037 (0.018-0.065) / 0.060 
+  comparison @0.05:  unstudentised 0.027   matrix-stud 0.047   Bonferroni 0.013   | legacy LRT reject 1.000 (0.988-1.000) 
+  ok reps: MOST p mean 0.587, P(p<=.10) 0.060, KS p 0.000 | pin.dev median 0.00006 max 0.0015 | Meff median 248
+
+=====================================================================
+gwas t=1  K x 0.05 L x 1  reps 500: ok 341, no-signal 159, errors 0 | base us 0 / diag 0 | vm conv 1.000 | trials bounded (ok reps): 0:341
+  MOST (diag-studentised) reject @0.01/0.05/0.10: 0.010 / 0.034 (0.020-0.054) / 0.070 
+  comparison @0.05:  unstudentised 0.018   matrix-stud 0.034   Bonferroni 0.014   | legacy LRT reject 0.132 (0.104-0.165) 
+  ok reps: MOST p mean 0.500, P(p<=.10) 0.103, KS p 0.825 | pin.dev median 0.00004 max 0.1403 | Meff median 1215
+
+=====================================================================
+gwas t=1  K x 0    L x 0  reps 500: ok 199, no-signal 301, errors 0 | base us 0 / diag 0 | vm conv 1.000 | trials bounded (ok reps): 0:199
+  MOST (diag-studentised) reject @0.01/0.05/0.10: 0.004 / 0.018 (0.008-0.034) / 0.042 
+  comparison @0.05:  unstudentised 0.008   matrix-stud 0.018   Bonferroni 0.006   | legacy LRT reject 0.022 (0.011-0.039) 
+  ok reps: MOST p mean 0.505, P(p<=.10) 0.106, KS p 0.710 | pin.dev median 0.00038 max 0.1523 | Meff median 1161
+
+=====================================================================
+gwas t=1  K x 0    L x 1  reps 500: ok 259, no-signal 241, errors 0 | base us 0 / diag 0 | vm conv 1.000 | trials bounded (ok reps): 0:259
+  MOST (diag-studentised) reject @0.01/0.05/0.10: 0.000 / 0.022 (0.011-0.039) / 0.042 
+  comparison @0.05:  unstudentised 0.012   matrix-stud 0.022   Bonferroni 0.008   | legacy LRT reject 0.044 (0.028-0.066) 
+  ok reps: MOST p mean 0.524, P(p<=.10) 0.081, KS p 0.432 | pin.dev median 0.00005 max 0.0221 | Meff median 1193
+
+=====================================================================
+gwas t=1  K x 1    L x 1  reps 500: ok 500, no-signal 0, errors 0 | base us 0 / diag 0 | vm conv 1.000 | trials bounded (ok reps): 0:500
+  MOST (diag-studentised) reject @0.01/0.05/0.10: 0.006 / 0.056 (0.038-0.080) / 0.108 
+  comparison @0.05:  unstudentised 0.042   matrix-stud 0.056   Bonferroni 0.030   | legacy LRT reject 1.000 (0.993-1.000) 
+  ok reps: MOST p mean 0.485, P(p<=.10) 0.108, KS p 0.540 | pin.dev median 0.00002 max 0.0003 | Meff median 1175
+
+=====================================================================
+gwas t=3  K x 0.05 L x 1  reps 300: ok 282, no-signal 17, errors 1 | base us 299 / diag 0 | vm conv 0.973 | trials bounded (ok reps): 0:69 1:137 2:76
+
+error: Base model not converged: Check base model before proceeding. 
+                                                                   1 
+  MOST (diag-studentised) reject @0.01/0.05/0.10: 0.010 / 0.060 (0.036-0.093) / 0.097 
+  comparison @0.05:  unstudentised 0.027   matrix-stud 0.057   Bonferroni 0.023   | legacy LRT reject 0.104 (0.072-0.144) 
+  ok reps: MOST p mean 0.498, P(p<=.10) 0.103, KS p 0.964 | pin.dev median 0.00001 max 0.1347 | Meff median 1151
+
+=====================================================================
+gwas t=3  K x 0    L x 1  reps 300: ok 262, no-signal 37, errors 1 | base us 299 / diag 0 | vm conv 0.977 | trials bounded (ok reps): 0:19 1:109 2:134
+
+error: Base model not converged: Check base model before proceeding. 
+                                                                   1 
+  MOST (diag-studentised) reject @0.01/0.05/0.10: 0.013 / 0.054 (0.031-0.085) / 0.090 
+  comparison @0.05:  unstudentised 0.030   matrix-stud 0.057   Bonferroni 0.023   | legacy LRT reject 0.033 (0.016-0.061) 
+  ok reps: MOST p mean 0.488, P(p<=.10) 0.103, KS p 0.315 | pin.dev median 0.00001 max 0.0145 | Meff median 1166
+
+=====================================================================
+gwas t=3  K x 1    L x 1  reps 300: ok 300, no-signal 0, errors 0 | base us 300 / diag 0 | vm conv 0.980 | trials bounded (ok reps): 0:294 1:6
+  MOST (diag-studentised) reject @0.01/0.05/0.10: 0.003 / 0.013 (0.004-0.034) / 0.043 
+  comparison @0.05:  unstudentised 0.013   matrix-stud 0.017   Bonferroni 0.010   | legacy LRT reject 1.000 (0.988-1.000) 
+  ok reps: MOST p mean 0.594, P(p<=.10) 0.043, KS p 0.000 | pin.dev median 0.00001 max 0.0006 | Meff median 1147
+
+=====================================================================
+dh   t=3  K x 0    L x 0  reps 300: ok 243, no-signal 57, errors 0 | base us 36 / diag 264 | vm conv 0.970 | trials bounded (ok reps): 0:25 1:97 2:121
+  MOST (diag-studentised) reject @0.01/0.05/0.10: 0.010 / 0.030 (0.014-0.056) / 0.057 
+  comparison @0.05:  unstudentised 0.017   matrix-stud 0.033   Bonferroni 0.007   | legacy LRT reject 0.037 (0.018-0.065) 
+  ok reps: MOST p mean 0.533, P(p<=.10) 0.070, KS p 0.019 | pin.dev median 0.00003 max 0.1544 | Meff median 104
+
+=====================================================================
+gwas t=3  K x 0    L x 0  reps 300: ok 220, no-signal 76, errors 4 | base us 36 / diag 260 | vm conv 0.926 | trials bounded (ok reps): 0:28 1:69 2:123
+
+error: Error   : Variance structure is not positive definite 
+                                                           4 
+  MOST (diag-studentised) reject @0.01/0.05/0.10: 0.007 / 0.017 (0.006-0.039) / 0.061 
+  comparison @0.05:  unstudentised 0.010   matrix-stud 0.017   Bonferroni 0.007   | legacy LRT reject 0.007 (0.001-0.024) 
+  ok reps: MOST p mean 0.509, P(p<=.10) 0.082, KS p 0.661 | pin.dev median 0.00000 max 0.8515 | Meff median 1209
+
+
+==== STANDALONE MOST NULL GRID ====
+                     cell   n no.signal MOST.01 MOST.05 MOST.10 unstud.05
+ dh   t=1  K x 0.05 L x 1 500       149 0.00400  0.0420  0.0780   0.00800
+ dh   t=1  K x 0    L x 0 500       285 0.00000  0.0140  0.0240   0.00000
+ dh   t=1  K x 0    L x 1 500       269 0.00400  0.0200  0.0480   0.00600
+ dh   t=1  K x 1    L x 1 500         0 0.01400  0.0520  0.0800   0.02400
+ dh   t=3  K x 0.05 L x 1 298        15 0.00336  0.0369  0.0839   0.00671
+ dh   t=3  K x 0    L x 1 297        65 0.01010  0.0438  0.0741   0.02357
+ dh   t=3  K x 1    L x 1 300         0 0.01000  0.0367  0.0600   0.02667
+ gwas t=1  K x 0.05 L x 1 500       159 0.01000  0.0340  0.0700   0.01800
+ gwas t=1  K x 0    L x 0 500       301 0.00400  0.0180  0.0420   0.00800
+ gwas t=1  K x 0    L x 1 500       241 0.00000  0.0220  0.0420   0.01200
+ gwas t=1  K x 1    L x 1 500         0 0.00600  0.0560  0.1080   0.04200
+ gwas t=3  K x 0.05 L x 1 299        17 0.01003  0.0602  0.0970   0.02676
+ gwas t=3  K x 0    L x 1 299        37 0.01338  0.0535  0.0903   0.03010
+ gwas t=3  K x 1    L x 1 300         0 0.00333  0.0133  0.0433   0.01333
+ dh   t=3  K x 0    L x 0 300        57 0.01000  0.0300  0.0567   0.01667
+ gwas t=3  K x 0    L x 0 296        76 0.00676  0.0169  0.0608   0.01014
+ bonf.05  LRT.05
+ 0.00200 0.18600
+ 0.00000 0.04200
+ 0.00600 0.04200
+ 0.01200 0.99200
+ 0.00336 0.20134
+ 0.00000 0.03704
+ 0.01333 1.00000
+ 0.01400 0.13200
+ 0.00600 0.02200
+ 0.00800 0.04400
+ 0.03000 1.00000
+ 0.02341 0.10368
+ 0.02341 0.03344
+ 0.01000 1.00000
+ 0.00667 0.03667
+ 0.00676 0.00676

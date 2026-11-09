@@ -149,11 +149,25 @@
 aomNullDiag <- function(asm, phenoData, intervalObj, state, merge.by,
                         Trait = NULL, ntrait = 1L, selection = "interval",
                         B = 2000L, alpha = 0.05, batch = 250L, seed = 1L,
-                        factor.method = "chol") {
+                        factor.method = "chol", tol.pin = 0.01,
+                        keep.traits = NULL) {
     tm  <- c(inputs = 0, blocks = 0, factor = 0, simulate = 0, pvals = 0)
     t0  <- proc.time()[["elapsed"]]
     inp <- .aom_inputs(asm, phenoData, intervalObj, merge.by, Trait, ntrait)
     tm["inputs"] <- proc.time()[["elapsed"]] - t0
+    # MOST on a subset of traits (e.g. drop trials whose genomic variance is
+    # at the boundary: their BLUPs are ~0 and a ~0 variance would dominate
+    # Ga^- in the statistic).
+    if (!is.null(keep.traits) && length(keep.traits) < ntrait) {
+        n0  <- ncol(inp$T)
+        rows <- unlist(lapply(keep.traits, function(k) ((k - 1L) * n0 + 1L):(k * n0)))
+        inp$Ga <- inp$Ga[keep.traits, keep.traits, drop = FALSE]
+        inp$g  <- inp$g[, keep.traits, drop = FALSE]
+        inp$C  <- inp$C[rows, rows, drop = FALSE]
+        inp$trait.levels <- inp$trait.levels[keep.traits]
+        ntrait <- length(keep.traits)
+        inp$Ginv <- if (ntrait == 1L) matrix(1 / inp$Ga[1L, 1L], 1L, 1L) else MASS::ginv(inp$Ga)
+    }
     T <- inp$T; Ginv <- as.matrix(inp$Ginv); t <- ntrait
     m <- nrow(T); n <- ncol(T)
     Vg  <- kronecker(inp$Ga, inp$K) - inp$C
@@ -212,8 +226,36 @@ aomNullDiag <- function(asm, phenoData, intervalObj, state, merge.by,
     t0 <- proc.time()[["elapsed"]]
     set.seed(seed)
     maxnull <- maxchr <- numeric(0); nullsum <- 0
+    maxstud <- maxstudM <- numeric(0)
     chr.f <- factor(chr)
     den.c <- tapply(den, chr.f, sum)
+    act   <- den > 0
+    # --- studentisation targets ---------------------------------------------
+    # At the REML fit the score equation for the genome-wide variance gives
+    # sum_j num_j = sum_j den_j (UV; MV element-wise for us/diag):
+    #   S.target = sum_j V_j            (t x t, "expected" cross-products)
+    #   S.obs    = sum_j q~_j q~_j'     (observed)  -- should equal S.target
+    S.target <- apply(V[act, , , drop = FALSE], c(2, 3), sum)
+    S.obs    <- crossprod(Q[act, , drop = FALSE])
+    msqrt <- function(A, inv = FALSE) {
+        e <- eigen((A + t(A)) / 2, symmetric = TRUE)
+        v <- pmax(e$values, 0); keep <- v > 1e-12 * max(v)
+        d <- numeric(length(v)); d[keep] <- if (inv) 1 / sqrt(v[keep]) else sqrt(v[keep])
+        e$vectors %*% diag(d, length(d)) %*% t(e$vectors)
+    }
+    S.half <- msqrt(S.target)
+    # --- boundary-aware ("partial") pinning --------------------------------
+    # W = S.target^-1/2 S.obs S.target^-1/2.  Interior REML fit: W = I.
+    # On the boundary REML pins only the non-bounded directions: eigenvalues
+    # of W equal to 1 = pinned directions; eigenvalues != 1 = directions the
+    # bound prevented REML from fitting (not pinned).
+    S.ihalf <- msqrt(S.target, inv = TRUE)
+    W.obs   <- S.ihalf %*% S.obs %*% S.ihalf
+    eW      <- eigen((W.obs + t(W.obs)) / 2, symmetric = TRUE)
+    E.w     <- eW$vectors; w.obs <- eW$values
+    pin.dir <- abs(w.obs - 1) < tol.pin
+    S.ohalf <- msqrt(S.obs)
+    maxstudO <- maxstudP <- maxstudD <- numeric(0)
     while (length(maxnull) < B) {
         bb <- min(batch, B - length(maxnull))
         Z  <- L %*% matrix(rnorm(ncol(L) * bb), ncol(L), bb)
@@ -227,6 +269,55 @@ aomNullDiag <- function(asm, phenoData, intervalObj, state, merge.by,
         ch <- rowsum(numS, chr.f) / as.vector(den.c)
         ch[!is.finite(ch)] <- 0
         maxchr <- c(maxchr, apply(ch, 2L, max))
+
+        # (a) scalar studentisation: rescale each draw so sum num* = sum den
+        cs <- sum(den[act]) / colSums(numS[act, , drop = FALSE])
+        maxstud <- c(maxstud, apply(st, 2L, max) * cs)
+
+        # (e) per-trait ("diag") studentisation: REML for a diag(Trait):vm
+        #     term pins each trait's cross-product, S.obs[k,k] = S.target[k,k];
+        #     scale each trait column of the draw to the observed value.
+        sc <- lapply(seq_len(t), function(k)
+            sqrt(S.obs[k, k] / colSums(Qs[[k]][act, , drop = FALSE]^2)))
+        numD <- matrix(0, m, bb)
+        for (k in seq_len(t)) for (l in seq_len(t))
+            numD <- numD + Ginv[k, l] *
+                sweep(Qs[[k]], 2L, sc[[k]], `*`) * sweep(Qs[[l]], 2L, sc[[l]], `*`)
+        maxstudD <- c(maxstudD, apply(numD / ifelse(den > 0, den, Inf), 2L, max))
+
+        # (b) matrix studentisation (= scalar for UV): transform each draw so
+        #     that sum_j q*_j q*_j' = S.target, i.e. mimic refitting Ga
+        mS <- mO <- mP <- numeric(bb)
+        for (b in seq_len(bb)) {
+            Qb <- vapply(Qs, function(x) x[, b], numeric(m))          # m x t
+            if (t == 1L) Qb <- matrix(Qb, ncol = 1L)
+            Sb <- crossprod(Qb[act, , drop = FALSE])
+            Sb.ih <- msqrt(Sb, inv = TRUE)
+            A  <- S.half %*% Sb.ih                                    # t x t
+            Qt <- Qb %*% t(A)
+            nb <- rowSums((Qt %*% Ginv) * Qt)
+            mS[b] <- max(ifelse(act, nb / den, 0))
+
+            # (c) all directions pinned to the OBSERVED cross-products
+            Qo <- Qb %*% t(S.ohalf %*% Sb.ih)
+            no <- rowSums((Qo %*% Ginv) * Qo)
+            mO[b] <- max(ifelse(act, no / den, 0))
+
+            # (d) partial: pin only the directions REML pinned, at observed values
+            Y <- Qb %*% S.ihalf %*% E.w                               # m x t, W-basis
+            if (any(pin.dir)) {
+                P  <- which(pin.dir)
+                Wb <- crossprod(Y[act, P, drop = FALSE])
+                Y[, P] <- Y[, P, drop = FALSE] %*% msqrt(Wb, inv = TRUE) %*%
+                          diag(sqrt(w.obs[P]), length(P))
+            }
+            Qp <- Y %*% t(E.w) %*% S.half
+            np <- rowSums((Qp %*% Ginv) * Qp)
+            mP[b] <- max(ifelse(act, np / den, 0))
+        }
+        maxstudM <- c(maxstudM, mS)
+        maxstudO <- c(maxstudO, mO)
+        maxstudP <- c(maxstudP, mP)
     }
     tm["simulate"] <- proc.time()[["elapsed"]] - t0
 
@@ -236,6 +327,16 @@ aomNullDiag <- function(asm, phenoData, intervalObj, state, merge.by,
     p.fwe.c <- (1 + sum(maxchr >= ochr[cmax])) / (1 + B)
     p.star <- pmark(jmax, thr)
     Meff   <- log(1 - alpha) / log(1 - p.star)
+    thr.s    <- unname(quantile(maxstud, 1 - alpha))
+    p.fwe.s  <- (1 + sum(maxstud  >= oint[jmax])) / (1 + B)
+    thr.sM   <- unname(quantile(maxstudM, 1 - alpha))
+    p.fwe.sM <- (1 + sum(maxstudM >= oint[jmax])) / (1 + B)
+    p.fwe.sO <- (1 + sum(maxstudO >= oint[jmax])) / (1 + B)
+    p.fwe.sP <- (1 + sum(maxstudP >= oint[jmax])) / (1 + B)
+    p.fwe.sD <- (1 + sum(maxstudD >= oint[jmax])) / (1 + B)
+    thr.sD   <- unname(quantile(maxstudD, 1 - alpha))
+    obs.ratio <- sum(num[act]) / sum(den[act])          # REML pin: ~1
+    obs.Sdev  <- max(abs(S.obs - S.target)) / max(abs(diag(S.target)))
 
     list(summary = data.frame(
              path = inp$path, ntrait = t, n.markers = m, n.lines = n,
@@ -247,6 +348,13 @@ aomNullDiag <- function(asm, phenoData, intervalObj, state, merge.by,
              null.mean.oint = nullsum / (sum(den > 0) * B),
              chr.max = cmax, max.ochr = unname(ochr[cmax]),
              fwe.thr.chr = thr.c, p.fwe.chr = p.fwe.c,
+             fwe.thr.stud = thr.s, p.fwe.stud = p.fwe.s,
+             fwe.thr.studM = thr.sM, p.fwe.studM = p.fwe.sM,
+             obs.ratio = obs.ratio, obs.Sdev = obs.Sdev,
+             p.fwe.studO = p.fwe.sO, p.fwe.studP = p.fwe.sP,
+             p.fwe.studD = p.fwe.sD, fwe.thr.studD = thr.sD,
+             diag.pin.dev = max(abs(diag(S.obs) / diag(S.target) - 1)),
+             n.unpinned = sum(!pin.dir), w.min = min(w.obs), w.max = max(w.obs),
              stringsAsFactors = FALSE),
          oint = oint, ochr = ochr, maxnull = maxnull, maxchr = maxchr,
          Q = Q, den = den, Ga = inp$Ga,
